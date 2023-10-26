@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { FavoriteBorder, Favorite } from "@mui/icons-material";
 import {
   Card,
@@ -13,8 +14,9 @@ import {
 import React from "react";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ShareIcon from "@mui/icons-material/Share";
+import { Link } from "react-router-dom";
 
-const Post = () => {
+const Post = ({ itemName, itemLink, itemImage }) => {
   return (
     <div>
       <Card sx={{ marginTop: 5 }}>
@@ -29,16 +31,22 @@ const Post = () => {
               <MoreVertIcon />
             </IconButton>
           }
-          title="Shrimp and Chorizo Paella"
-          subheader="September 14, 2016"
+          title={itemName}
+          subheader={itemLink}
         />
         <CardMedia
+          sx={{
+            display: "flex",
+            maxWidth: "20%",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
           component="img"
-          height="20%"
-          image="https://images.pexels.com/photos/846741/pexels-photo-846741.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+          image={itemImage}
           alt="Paella dish"
         />
         <CardContent>
+          {itemImage}
           <Typography variant="body2" color="text.secondary">
             This impressive paella is a perfect party dish and a fun meal to
             cook together with your guests. Add 1 cup of frozen peas along with

@@ -1,13 +1,20 @@
+/* eslint-disable react/prop-types */
+import { useState } from "react";
 import { Box } from "@mui/material";
 import Post from "./Post";
 
-const Feed = () => {
+const Feed = ({ items }) => {
   return (
     <Box sx={{ flex: 4, padding: 2 }}>
-      <Post />
-      <Post />
-      <Post />
-      <Post />
+      {items.map((item, index) => (
+        <Post
+          key={index}
+          itemName={item.itemName}
+          itemLink={item.itemLink}
+          itemImage={item.itemImage}
+        />
+      ))}
+      {/* <Post items={items} /> */}
     </Box>
   );
 };
