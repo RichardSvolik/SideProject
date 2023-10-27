@@ -33,7 +33,7 @@ const Feed = ({ items, setItems }) => {
     setValueImage("");
   };
 
-  const addNewItem = (itemName, itemLink, itemImage) => {
+  const onAdd = (itemName, itemLink, itemImage) => {
     setItems([
       ...items,
       { itemName: itemName, itemLink: itemLink, itemImage: itemImage },
@@ -90,7 +90,7 @@ const Feed = ({ items, setItems }) => {
       >
         <Button
           variant="contained"
-          onClick={() => addNewItem(itemName, itemLink, itemImage)}
+          onClick={() => onAdd(itemName, itemLink, itemImage)}
         >
           Add
         </Button>
@@ -102,7 +102,7 @@ const Feed = ({ items, setItems }) => {
           padding: 2,
         }}
       >
-        <ListOfItems items={items} />
+        <ListOfItems items={items} setItems={setItems} />
       </Box>
     </Box>
   );
