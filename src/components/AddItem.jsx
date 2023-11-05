@@ -12,12 +12,31 @@ const Feed = ({ items, setItems }) => {
   const [valueLink, setValueLink] = useState("");
   const [valueImage, setValueImage] = useState("");
 
+  const [isItemNameValid, setIsItemNameValid] = useState(false);
+  const [isLinkValid, setIsLinkValid] = useState(false);
+
+  const validateItemName = (valueToValidate) => {
+    const isValid = valueToValidate.length >= 1;
+    isValid ? setIsItemNameValid(true) : setIsItemNameValid(false);
+  };
+
+  const validateUrl = (url) => {
+    try {
+      new URL(url);
+      setIsLinkValid(true);
+    } catch (_) {
+      setIsLinkValid(false);
+    }
+  };
+
   const handleItemName = (event) => {
+    validateItemName(event.target.value);
     setItemName(event.target.value);
     setValueName(event.target.value);
   };
 
   const handleItemLink = (event) => {
+    validateUrl(event.target.value);
     setItemLink(event.target.value);
     setValueLink(event.target.value);
   };
@@ -33,12 +52,24 @@ const Feed = ({ items, setItems }) => {
     setValueImage("");
   };
 
+  const setInvalidState = () => {
+    setIsLinkValid(false);
+    setIsItemNameValid(false);
+  };
+
   const onAdd = (itemName, itemLink, itemImage) => {
     setItems([
       ...items,
-      { itemName: itemName, itemLink: itemLink, itemImage: itemImage },
+      {
+        itemName: itemName,
+        itemLink: itemLink,
+        itemImage: itemImage,
+        itemDate: new Date(),
+        checked: false,
+      },
     ]);
     clearTextFields();
+    setInvalidState();
   };
 
   useEffect(() => {
@@ -61,13 +92,17 @@ const Feed = ({ items, setItems }) => {
         }}
       >
         <TextField
+          error={!isItemNameValid}
           id="outlined-basic"
+          helperText={!isItemNameValid ? "Insert Item name" : ""}
           label="Item name"
           variant="outlined"
           value={valueName}
           onChange={handleItemName}
         />
         <TextField
+          error={!isLinkValid}
+          helperText={!isLinkValid ? "invalid link" : ""}
           id="outlined-basic"
           label="Link"
           value={valueLink}
@@ -89,6 +124,7 @@ const Feed = ({ items, setItems }) => {
         }}
       >
         <Button
+          disabled={!isItemNameValid || !isLinkValid}
           variant="contained"
           onClick={() => onAdd(itemName, itemLink, itemImage)}
         >
@@ -102,7 +138,12 @@ const Feed = ({ items, setItems }) => {
           padding: 2,
         }}
       >
-        <ListOfItems items={items} setItems={setItems} />
+        <ListOfItems
+          items={items}
+          setItems={setItems}
+          setIsItemNameValid={setIsItemNameValid}
+          setIsLinkValid={setIsLinkValid}
+        />
       </Box>
     </Box>
   );

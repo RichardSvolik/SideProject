@@ -1,67 +1,70 @@
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import Avatar from "@mui/material/Avatar";
-import { Divider, Typography, Box, Link } from "@mui/material";
+import { Button } from "@mui/material";
+
+import { Divider, Box } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
+import Checkbox from "@mui/material/Checkbox";
 
-function ListOfItems({ items, setItems }) {
-  const handleDeleteItem = (itemName) => {
-    JSON.parse(localStorage.getItem("items"));
-    console.log("itemsInLocalStorage: ", items);
+import Item from "./item";
 
-    const newItems = items.filter((item) => item.itemName !== itemName);
-    console.log("newItems: ", newItems);
+function ListOfItems({ items, setItems, setIsItemNameValid, setIsLinkValid }) {
+  const handleDeleteItem = (itemToDelete) => {
+    let filteredItems = [];
+    if (!itemToDelete) {
+      filteredItems = items.filter((item) => !item.checked);
+    } else
+      filteredItems = items.filter((item) => item.itemName !== itemToDelete);
+    console.log("filteredItems: ", filteredItems);
     localStorage.clear();
-    localStorage.setItem("items", JSON.stringify(newItems));
-    setItems(JSON.parse(localStorage.getItem("items")));
-    setItems(newItems);
+    localStorage.setItem("items", JSON.stringify(items));
+    setItems(filteredItems);
+    setIsLinkValid(false);
+    setIsItemNameValid(false);
+  };
+
+  const handleCheckChange = (selectedName) => {
+    items.map((item) => {
+      if (item.itemName === selectedName) {
+        item.checked = true;
+      }
+    });
   };
 
   return (
     <Box sx={{ flex: 4, padding: 2 }}>
-      {items.map((item, index) => (
-        <List
-          key={index}
-          sx={{ maxWidth: "100%", bgcolor: "background.paper" }}
-        >
-          <ListItem alignItems="flex-start">
-            <ListItemAvatar>
-              <Avatar
-                sx={{ maxWidth: "fit-content" }}
-                variant="rounded"
-                alt={item.itemName}
-                src={item.itemImage}
-              />
-            </ListItemAvatar>
-            <ListItemText
-              primary={item.itemName}
-              secondary={
-                <Typography
-                  sx={{ display: "inline" }}
-                  component="span"
-                  variant="body2"
-                  color="text.primary"
+      <Box>
+        {items.map((item) => (
+          <>
+            <List sx={{ maxWidth: "100%", bgcolor: "background.paper" }}>
+              <Divider variant="inset" component="li" />
+              <ListItem key={item.itemName} alignItems="center">
+                <Checkbox
+                  edge="start"
+                  onChange={() => handleCheckChange(item.itemName)}
+                />
+                <Item item={item} />
+                <IconButton
+                  edge="end"
+                  aria-label="delete"
+                  onClick={() => handleDeleteItem(item.itemName)}
                 >
-                  <Link href={item.itemLink} target="_blank" underline="none">
-                    {item.itemLink}
-                  </Link>
-                </Typography>
-              }
-            />
-            <IconButton
-              edge="end"
-              aria-label="delete"
-              onClick={() => handleDeleteItem(item.itemName)}
-            >
-              <DeleteIcon />
-            </IconButton>
-          </ListItem>
-          <Divider variant="inset" component="li" />
-        </List>
-      ))}
+                  <DeleteIcon />
+                </IconButton>
+              </ListItem>
+            </List>
+          </>
+        ))}
+      </Box>
+      <Button
+        variant="outlined"
+        onClick={() => {
+          handleDeleteItem();
+        }}
+      >
+        Delete Selected
+      </Button>
     </Box>
   );
 }
