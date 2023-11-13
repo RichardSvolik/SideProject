@@ -7,7 +7,7 @@ import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Checkbox from "@mui/material/Checkbox";
 
-import Item from "./item";
+import Item from "./Item";
 
 function ListOfItems({ items, setItems, setIsItemNameValid, setIsLinkValid }) {
   const handleDeleteItem = (itemToDelete) => {
