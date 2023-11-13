@@ -18,7 +18,7 @@ test('add one item', async ({ page }) => {
   await page.getByLabel('Link').click();
   await page.getByLabel('Link').fill('iPhone');
   await page.locator('div').filter({ hasText: /^Link$/ }).locator('#outlined-basic').click();
-  await page.locator('div').filter({ hasText: /^Linkd$/ }).locator('#outlined-basic').fill('https://www.alza.cz/iphone-15?dq=7927613&evt=ac');
+  await page.locator('div').filter({ hasText: /^Link$/ }).locator('#outlined-basic').fill('https://www.alza.cz/iphone-15?dq=7927613&evt=ac');
   
   await page.locator('div').filter({ hasText: /^Image Link$/ }).locator('#outlined-basic').click();
   await page.locator('div').filter({ hasText: /^Link$/ }).locator('#outlined-basic').fill('https://image.alza.cz/products/RI045b2/RI045b2.jpg?width=500&height=500');
