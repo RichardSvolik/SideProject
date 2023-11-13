@@ -10,10 +10,10 @@ import { Typography, Link } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 
 function Item({ item }) {
-  const [isNameEditable, setIsNameEditable] = useState(false);
+  const [isEditMode, setIsEditMode] = useState(false);
 
   const onEdit = () => {
-    setIsNameEditable(true);
+    setIsEditMode(true);
     console.log("onedit");
   };
 
@@ -30,14 +30,14 @@ function Item({ item }) {
       <ListItemText
         primary={
           <>
-            <Typography display={isNameEditable ? "none" : "block"}>
+            <Typography display={isEditMode ? "none" : "block"}>
               {item.itemName}
               {/* <EditIcon sx={{ fontSize: "default" }} onClick={onEdit} /> */}
               <IconButton onClick={onEdit} aria-label="edit">
                 <EditIcon />
               </IconButton>
             </Typography>
-            {isNameEditable && (
+            {isEditMode && (
               <TextField
                 size="small"
                 label="Item name"
