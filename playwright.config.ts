@@ -27,9 +27,7 @@ export default defineConfig({
 
     baseURL: 'https://localhost:5173/',
     ignoreHTTPSErrors: true,
-    launchOptions: {
-      args: ['--ignore-certificate-errors']
-  },
+    
 
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
