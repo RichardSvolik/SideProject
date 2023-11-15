@@ -11,12 +11,11 @@ import {
   CardActions,
   Checkbox,
 } from "@mui/material";
-import React from "react";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ShareIcon from "@mui/icons-material/Share";
 import { Link } from "react-router-dom";
 
-const Post = ({ itemName, itemLink, itemImage }) => {
+const Post = ({ itemName, itemLink, itemImage, itemCategory, itemPrice }) => {
   return (
     <div>
       <Card sx={{ marginTop: 5 }}>
@@ -32,7 +31,20 @@ const Post = ({ itemName, itemLink, itemImage }) => {
             </IconButton>
           }
           title={itemName}
-          subheader={itemLink}
+          subheader={
+            <Typography
+              noWrap
+              style={{
+                maxWidth: "550px",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+              }}
+            >
+              <Link href={itemLink} target="_blank" underline="none">
+                {itemLink}
+              </Link>
+            </Typography>
+          }
         />
         <CardMedia
           sx={{
@@ -48,9 +60,8 @@ const Post = ({ itemName, itemLink, itemImage }) => {
         <CardContent>
           {itemImage}
           <Typography variant="body2" color="text.secondary">
-            This impressive paella is a perfect party dish and a fun meal to
-            cook together with your guests. Add 1 cup of frozen peas along with
-            the mussels, if you like.
+            {itemCategory}
+            {itemPrice}
           </Typography>
         </CardContent>
         <CardActions disableSpacing>

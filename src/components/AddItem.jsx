@@ -1,16 +1,28 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useId } from "react";
+
 import { Box } from "@mui/material";
-import { TextField, Button } from "@mui/material";
+import {
+  TextField,
+  Button,
+  Select,
+  MenuItem,
+  InputLabel,
+  FormControl,
+} from "@mui/material";
 import ListOfItems from "./ListOfItems";
 
 const Feed = ({ items, setItems }) => {
   const [itemName, setItemName] = useState();
   const [itemLink, setItemLink] = useState();
   const [itemImage, setItemImage] = useState();
+  const [itemCategory, setItemCategory] = useState("");
+  const [itemPrice, setItemPrice] = useState("");
 
-  const [valueName, setValueName] = useState("");
-  const [valueLink, setValueLink] = useState("");
-  const [valueImage, setValueImage] = useState("");
+  // const [valueName, setValueName] = useState("");
+  // const [valueLink, setValueLink] = useState("");
+  // const [valueImage, setValueImage] = useState("");
+  // const [valueCategory, setValueCategory] = useState("");
+  // const [valuePrice, setValuePrice] = useState("");
 
   const [isItemNameValid, setIsItemNameValid] = useState(false);
   const [isLinkValid, setIsLinkValid] = useState(false);
@@ -32,24 +44,36 @@ const Feed = ({ items, setItems }) => {
   const handleItemName = (event) => {
     validateItemName(event.target.value);
     setItemName(event.target.value);
-    setValueName(event.target.value);
+    // setValueName(event.target.value);
   };
 
   const handleItemLink = (event) => {
     validateUrl(event.target.value);
     setItemLink(event.target.value);
-    setValueLink(event.target.value);
+    // setValueLink(event.target.value);
   };
 
   const handleItemImage = (event) => {
     setItemImage(event.target.value);
-    setValueImage(event.target.value);
+    // setValueImage(event.target.value);
+  };
+
+  const handleCategory = (event) => {
+    // setValueCategory(event.target.value);
+    setItemCategory(event.target.value);
+  };
+
+  const handleItemPrice = (event) => {
+    // setValuePrice(event.target.value);
+    setItemPrice(event.target.value);
   };
 
   const clearTextFields = () => {
-    setValueLink("");
-    setValueName("");
-    setValueImage("");
+    setItemLink("");
+    setItemName("");
+    setItemImage("");
+    setItemPrice("");
+    setItemCategory("");
   };
 
   const setInvalidState = () => {
@@ -57,19 +81,27 @@ const Feed = ({ items, setItems }) => {
     setIsItemNameValid(false);
   };
 
-  const onAdd = (itemName, itemLink, itemImage) => {
-    setItems([
-      ...items,
-      {
-        itemName: itemName,
-        itemLink: itemLink,
-        itemImage: itemImage,
-        itemDate: new Date(),
-        checked: false,
-      },
-    ]);
-    clearTextFields();
-    setInvalidState();
+  const onAdd = (duplicatedItem) => {
+    console.log("duplicatedItem: ", duplicatedItem);
+    if (duplicatedItem) {
+      setItems([...items, duplicatedItem]);
+    } else {
+      setItems([
+        ...items,
+        {
+          itemName: itemName,
+          itemLink: itemLink,
+          itemImage: itemImage,
+          itemDate: new Date(),
+          itemCategory: itemCategory,
+          checked: false,
+          itemPrice: itemPrice,
+          itemId: Date.now(),
+        },
+      ]);
+      clearTextFields();
+      setInvalidState();
+    }
   };
 
   useEffect(() => {
@@ -97,7 +129,7 @@ const Feed = ({ items, setItems }) => {
           helperText={!isItemNameValid ? "Insert Item name" : ""}
           label="Item name"
           variant="outlined"
-          value={valueName}
+          value={itemName}
           onChange={handleItemName}
         />
         <TextField
@@ -105,17 +137,37 @@ const Feed = ({ items, setItems }) => {
           helperText={!isLinkValid ? "invalid link" : ""}
           id="outlined-basic"
           label="Link"
-          value={valueLink}
+          value={itemLink}
           variant="outlined"
           onChange={handleItemLink}
         />
         <TextField
           id="outlined-basic"
           label="Image Link"
-          value={valueImage}
+          value={itemImage}
           variant="outlined"
           onChange={handleItemImage}
         />
+        <TextField
+          id="outlined-basic"
+          label="Price"
+          value={itemPrice}
+          variant="outlined"
+          onChange={handleItemPrice}
+        />
+        <FormControl>
+          <InputLabel id="demo-simple-select-label">Group</InputLabel>
+          <Select
+            sx={{ minWidth: 195 }}
+            value={itemCategory}
+            onChange={handleCategory}
+            label="Group"
+          >
+            <MenuItem value="Electronics">Electronics</MenuItem>
+            <MenuItem value="Food">Food</MenuItem>
+            <MenuItem value="Other">Other</MenuItem>
+          </Select>
+        </FormControl>
       </Box>
       <Box
         sx={{
@@ -126,7 +178,7 @@ const Feed = ({ items, setItems }) => {
         <Button
           disabled={!isItemNameValid || !isLinkValid}
           variant="contained"
-          onClick={() => onAdd(itemName, itemLink, itemImage)}
+          onClick={() => onAdd()}
         >
           Add
         </Button>
@@ -143,6 +195,7 @@ const Feed = ({ items, setItems }) => {
           setItems={setItems}
           setIsItemNameValid={setIsItemNameValid}
           setIsLinkValid={setIsLinkValid}
+          onAdd={onAdd}
         />
       </Box>
     </Box>

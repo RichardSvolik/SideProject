@@ -12,6 +12,8 @@ const Feed = ({ items }) => {
           itemName={item.itemName}
           itemLink={item.itemLink}
           itemImage={item.itemImage}
+          itemPrice={item.itemPrice}
+          itemCategory={item.itemCategory}
         />
       ))}
       {/* <Post items={items} /> */}

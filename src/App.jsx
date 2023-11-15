@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Box, Stack } from "@mui/material";
 import Feed from "./components/Feed";
 import AddItem from "./components/AddItem";
@@ -12,7 +12,7 @@ function App() {
   const [items, setItems] = useState(
     JSON.parse(localStorage.getItem("items")) || []
   );
-  console.log("items: ", items);
+  // console.log("items: ", items);
   return (
     <BrowserRouter basename="">
       <Box>

@@ -11,10 +11,25 @@ import IconButton from "@mui/material/IconButton";
 
 function Item({ item }) {
   const [isEditMode, setIsEditMode] = useState(false);
+  const [textToEdit, setTextToEdit] = useState(item.itemName);
 
-  const onEdit = () => {
-    setIsEditMode(true);
-    console.log("onedit");
+  const onEdit = (event) => {
+    if (event.key === "Enter") console.log("Enter key pressed");
+    setIsEditMode((previous) => !previous);
+  };
+
+  const handleItemNameChanged = (event) => {
+    setTextToEdit(event.target.value);
+    item.itemName = event.target.value;
+    const localStorageData = JSON.parse(localStorage.getItem("items"));
+    localStorageData.map((localStorageItem) => {
+      if (localStorageItem.itemId === item.itemId)
+        localStorageItem.itemName = item.itemName;
+    });
+    localStorage.clear();
+    localStorage.setItem("items", JSON.stringify(localStorageData));
+
+    //TOTO save to local storage
   };
 
   return (
@@ -28,23 +43,30 @@ function Item({ item }) {
         />
       </ListItemAvatar>
       <ListItemText
+        noWrap
+        style={{
+          maxWidth: "500px",
+          overflow: "hidden",
+          textOverflow: "ellipsis",
+        }}
         primary={
           <>
             <Typography display={isEditMode ? "none" : "block"}>
               {item.itemName}
-              {/* <EditIcon sx={{ fontSize: "default" }} onClick={onEdit} /> */}
               <IconButton onClick={onEdit} aria-label="edit">
                 <EditIcon />
               </IconButton>
             </Typography>
             {isEditMode && (
               <TextField
+                sx={{ width: "100%" }}
                 size="small"
                 label="Item name"
-                value={item.itemName}
+                value={textToEdit}
+                onChange={handleItemNameChanged}
                 InputProps={{
                   endAdornment: (
-                    <IconButton>
+                    <IconButton onClick={onEdit} onKeyDown={onEdit}>
                       <CheckIcon />
                     </IconButton>
                   ),
@@ -55,6 +77,7 @@ function Item({ item }) {
         }
         secondary={
           <Typography
+            noWrap
             sx={{ display: "inline" }}
             component="span"
             variant="body2"
@@ -63,6 +86,7 @@ function Item({ item }) {
             <Link href={item.itemLink} target="_blank" underline="none">
               {item.itemLink}
             </Link>
+            <Typography color="text.secondary">{item.itemPrice},-</Typography>
           </Typography>
         }
       />

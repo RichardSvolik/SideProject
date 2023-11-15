@@ -5,11 +5,20 @@ import { Button } from "@mui/material";
 import { Divider, Box } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { LibraryAdd } from "@mui/icons-material";
 import Checkbox from "@mui/material/Checkbox";
+
+import useLocalStorage from "./hooks/useLocalStorage";
 
 import Item from "./Item";
 
-function ListOfItems({ items, setItems, setIsItemNameValid, setIsLinkValid }) {
+function ListOfItems({
+  items,
+  setItems,
+  setIsItemNameValid,
+  setIsLinkValid,
+  onAdd,
+}) {
   const handleDeleteItem = (itemToDelete) => {
     let filteredItems = [];
     if (!itemToDelete) {
@@ -17,6 +26,7 @@ function ListOfItems({ items, setItems, setIsItemNameValid, setIsLinkValid }) {
     } else
       filteredItems = items.filter((item) => item.itemName !== itemToDelete);
     console.log("filteredItems: ", filteredItems);
+    // useLocalStorage(items)
     localStorage.clear();
     localStorage.setItem("items", JSON.stringify(items));
     setItems(filteredItems);
@@ -24,7 +34,13 @@ function ListOfItems({ items, setItems, setIsItemNameValid, setIsLinkValid }) {
     setIsItemNameValid(false);
   };
 
-  const handleCheckChange = (selectedName) => {
+  const handleDuplicateItem = (itemName) => {
+    const duplicatedItem = items.filter((item) => item.itemName === itemName);
+    // console.log("duplicatedItem: ", duplicatedItem[0]);
+    onAdd(duplicatedItem[0]);
+  };
+
+  const handleCheckBoxChange = (selectedName) => {
     items.map((item) => {
       if (item.itemName === selectedName) {
         item.checked = true;
@@ -42,7 +58,7 @@ function ListOfItems({ items, setItems, setIsItemNameValid, setIsLinkValid }) {
               <ListItem key={item.itemName} alignItems="center">
                 <Checkbox
                   edge="start"
-                  onChange={() => handleCheckChange(item.itemName)}
+                  onChange={() => handleCheckBoxChange(item.itemName)}
                 />
                 <Item item={item} />
                 <IconButton
@@ -51,6 +67,9 @@ function ListOfItems({ items, setItems, setIsItemNameValid, setIsLinkValid }) {
                   onClick={() => handleDeleteItem(item.itemName)}
                 >
                   <DeleteIcon />
+                </IconButton>
+                <IconButton onClick={() => handleDuplicateItem(item.itemName)}>
+                  <LibraryAdd />
                 </IconButton>
               </ListItem>
             </List>
