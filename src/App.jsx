@@ -1,12 +1,13 @@
-import { useState } from "react";
+import { useState, createContext } from "react";
 import { Box, Stack } from "@mui/material";
 import Feed from "./components/Feed";
 import AddItem from "./components/AddItem";
 import Sidebar from "./components/Sidebar";
 import Navbar from "./components/Topbar";
 import Rightbar from "./components/Rightbar";
-import Add from "./components/Add";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
+
+const UserContext = createContext();
 
 function App() {
   const [items, setItems] = useState(
@@ -29,7 +30,6 @@ function App() {
           </Routes>
           <Rightbar />
         </Stack>
-        <Add></Add>
       </Box>
     </BrowserRouter>
   );

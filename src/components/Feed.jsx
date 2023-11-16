@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
 import { Box } from "@mui/material";
 import Post from "./Post";
 

@@ -10,73 +10,57 @@ import {
   Typography,
   CardActions,
   Checkbox,
+  Button,
+  CardActionArea,
 } from "@mui/material";
+import { green } from "@mui/material/colors";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ShareIcon from "@mui/icons-material/Share";
 import { Link } from "react-router-dom";
 
-const Post = ({ itemName, itemLink, itemImage, itemCategory, itemPrice }) => {
+import BuyModal from "/src/components/buyModal";
+
+const Post = ({
+  item,
+  itemName,
+  itemLink,
+  itemImage,
+  itemCategory,
+  itemPrice,
+}) => {
   return (
-    <div>
+    <>
       <Card sx={{ marginTop: 5 }}>
-        <CardHeader
-          avatar={
-            <Avatar sx={{ bgcolor: "red" }} aria-label="recipe">
-              R
-            </Avatar>
-          }
-          action={
-            <IconButton aria-label="settings">
-              <MoreVertIcon />
-            </IconButton>
-          }
-          title={itemName}
-          subheader={
-            <Typography
-              noWrap
-              style={{
-                maxWidth: "550px",
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-              }}
-            >
-              <Link href={itemLink} target="_blank" underline="none">
-                {itemLink}
-              </Link>
-            </Typography>
-          }
-        />
         <CardMedia
           sx={{
-            display: "flex",
-            maxWidth: "20%",
+            marginTop: 2,
+            marginLeft: 2,
+            maxHeight: "300px",
+            maxWidth: "200px",
             alignItems: "center",
-            justifyContent: "center",
           }}
           component="img"
+          height="100%"
           image={itemImage}
-          alt="Paella dish"
+          alt={itemName}
         />
         <CardContent>
-          {itemImage}
+          <Typography gutterBottom variant="h5" component="div">
+            {itemName}
+          </Typography>
           <Typography variant="body2" color="text.secondary">
             {itemCategory}
+          </Typography>
+          <Typography variant="body2" style={{ color: green[600] }}>
             {itemPrice}
           </Typography>
         </CardContent>
-        <CardActions disableSpacing>
-          <IconButton aria-label="add to favorites">
-            <Checkbox
-              icon={<FavoriteBorder />}
-              checkedIcon={<Favorite sx={{ color: "red" }} />}
-            />
-          </IconButton>
-          <IconButton aria-label="share">
-            <ShareIcon />
-          </IconButton>
+
+        <CardActions>
+          <BuyModal itemImage={itemImage} itemName={itemName}></BuyModal>
         </CardActions>
       </Card>
-    </div>
+    </>
   );
 };
 
