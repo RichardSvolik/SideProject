@@ -1,4 +1,4 @@
-import { useState, useEffect, useId } from "react";
+import { useState, useEffect } from "react";
 
 import { Box } from "@mui/material";
 import {
@@ -18,18 +18,14 @@ const Feed = ({ items, setItems }) => {
   const [itemCategory, setItemCategory] = useState("");
   const [itemPrice, setItemPrice] = useState("");
 
-  // const [valueName, setValueName] = useState("");
-  // const [valueLink, setValueLink] = useState("");
-  // const [valueImage, setValueImage] = useState("");
-  // const [valueCategory, setValueCategory] = useState("");
-  // const [valuePrice, setValuePrice] = useState("");
-
-  const [isItemNameValid, setIsItemNameValid] = useState(false);
-  const [isLinkValid, setIsLinkValid] = useState(false);
+  const [isItemNameValid, setIsItemNameValid] = useState();
+  const [isLinkValid, setIsLinkValid] = useState();
+  const [isPriceValid, setIsPriceValid] = useState();
 
   const validateItemName = (valueToValidate) => {
-    const isValid = valueToValidate.length >= 1;
-    isValid ? setIsItemNameValid(true) : setIsItemNameValid(false);
+    valueToValidate.length >= 1
+      ? setIsItemNameValid(true)
+      : setIsItemNameValid(false);
   };
 
   const validateUrl = (url) => {
@@ -41,30 +37,30 @@ const Feed = ({ items, setItems }) => {
     }
   };
 
+  const validateItemPrice = (valueToValidate) => {
+    !isNaN(valueToValidate) ? setIsPriceValid(true) : setIsPriceValid(false);
+  };
+
   const handleItemName = (event) => {
     validateItemName(event.target.value);
     setItemName(event.target.value);
-    // setValueName(event.target.value);
   };
 
   const handleItemLink = (event) => {
     validateUrl(event.target.value);
     setItemLink(event.target.value);
-    // setValueLink(event.target.value);
   };
 
   const handleItemImage = (event) => {
     setItemImage(event.target.value);
-    // setValueImage(event.target.value);
   };
 
   const handleCategory = (event) => {
-    // setValueCategory(event.target.value);
     setItemCategory(event.target.value);
   };
 
   const handleItemPrice = (event) => {
-    // setValuePrice(event.target.value);
+    validateItemPrice(event.target.value);
     setItemPrice(event.target.value);
   };
 
@@ -81,27 +77,22 @@ const Feed = ({ items, setItems }) => {
     setIsItemNameValid(false);
   };
 
-  const onAdd = (duplicatedItem) => {
-    console.log("duplicatedItem: ", duplicatedItem);
-    if (duplicatedItem) {
-      setItems([...items, duplicatedItem]);
-    } else {
-      setItems([
-        ...items,
-        {
-          itemName: itemName,
-          itemLink: itemLink,
-          itemImage: itemImage,
-          itemDate: new Date(),
-          itemCategory: itemCategory,
-          checked: false,
-          itemPrice: itemPrice,
-          itemId: Date.now(),
-        },
-      ]);
-      clearTextFields();
-      setInvalidState();
-    }
+  const onAdd = () => {
+    setItems([
+      ...items,
+      {
+        itemName: itemName,
+        itemLink: itemLink,
+        itemImage: itemImage,
+        itemDate: new Date(),
+        itemCategory: itemCategory,
+        checked: false,
+        itemPrice: itemPrice,
+        itemId: Date.now(),
+      },
+    ]);
+    clearTextFields();
+    // setInvalidState();
   };
 
   useEffect(() => {
@@ -149,6 +140,8 @@ const Feed = ({ items, setItems }) => {
           onChange={handleItemImage}
         />
         <TextField
+          error={!isPriceValid}
+          helperText={!isPriceValid ? "insert a number" : ""}
           id="outlined-basic"
           label="Price"
           value={itemPrice}
@@ -176,7 +169,13 @@ const Feed = ({ items, setItems }) => {
         }}
       >
         <Button
-          disabled={!isItemNameValid || !isLinkValid}
+          disabled={
+            !isItemNameValid ||
+            !isLinkValid ||
+            !isPriceValid ||
+            itemName.length === 0 ||
+            itemLink.length === 0
+          }
           variant="contained"
           onClick={() => onAdd()}
         >
@@ -184,12 +183,7 @@ const Feed = ({ items, setItems }) => {
         </Button>
         <Button onClick={clearTextFields}>Clear</Button>
       </Box>
-      <Box
-        sx={{
-          flex: 4,
-          padding: 2,
-        }}
-      >
+      <Box>
         <ListOfItems
           items={items}
           setItems={setItems}

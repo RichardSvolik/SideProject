@@ -8,25 +8,15 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { LibraryAdd } from "@mui/icons-material";
 import Checkbox from "@mui/material/Checkbox";
 
-import useLocalStorage from "./hooks/useLocalStorage";
-
 import Item from "./Item";
 
-function ListOfItems({
-  items,
-  setItems,
-  setIsItemNameValid,
-  setIsLinkValid,
-  onAdd,
-}) {
+function ListOfItems({ items, setItems, setIsItemNameValid, setIsLinkValid }) {
   const handleDeleteItem = (itemToDelete) => {
     let filteredItems = [];
     if (!itemToDelete) {
       filteredItems = items.filter((item) => !item.checked);
-    } else
-      filteredItems = items.filter((item) => item.itemName !== itemToDelete);
+    } else filteredItems = items.filter((item) => item.itemId !== itemToDelete);
     console.log("filteredItems: ", filteredItems);
-    // useLocalStorage(items)
     localStorage.clear();
     localStorage.setItem("items", JSON.stringify(items));
     setItems(filteredItems);
@@ -34,41 +24,43 @@ function ListOfItems({
     setIsItemNameValid(false);
   };
 
-  const handleDuplicateItem = (itemName) => {
-    const duplicatedItem = items.filter((item) => item.itemName === itemName);
-    // console.log("duplicatedItem: ", duplicatedItem[0]);
-    onAdd(duplicatedItem[0]);
+  const handleDuplicateItem = (itemId) => {
+    console.log("itemId: ", itemId);
+    const filteredItem = items.find((item) => item.itemId === itemId);
+    const duplicatedItem = { ...filteredItem };
+    duplicatedItem.itemId = Date.now();
+    setItems([...items, duplicatedItem]);
   };
 
   const handleCheckBoxChange = (selectedName) => {
     items.map((item) => {
-      if (item.itemName === selectedName) {
+      if (item.itemId === selectedName) {
         item.checked = true;
       }
     });
   };
 
   return (
-    <Box sx={{ flex: 4, padding: 2 }}>
+    <Box sx={{ flex: 3, padding: 2 }}>
       <Box>
         {items.map((item) => (
           <>
-            <List sx={{ maxWidth: "100%", bgcolor: "background.paper" }}>
+            <List sx={{ bgcolor: "background.paper" }}>
               <Divider variant="inset" component="li" />
               <ListItem key={item.itemName} alignItems="center">
                 <Checkbox
                   edge="start"
-                  onChange={() => handleCheckBoxChange(item.itemName)}
+                  onChange={() => handleCheckBoxChange(item.itemId)}
                 />
                 <Item item={item} />
                 <IconButton
                   edge="end"
                   aria-label="delete"
-                  onClick={() => handleDeleteItem(item.itemName)}
+                  onClick={() => handleDeleteItem(item.itemId)}
                 >
                   <DeleteIcon />
                 </IconButton>
-                <IconButton onClick={() => handleDuplicateItem(item.itemName)}>
+                <IconButton onClick={() => handleDuplicateItem(item.itemId)}>
                   <LibraryAdd />
                 </IconButton>
               </ListItem>
