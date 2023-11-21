@@ -87,6 +87,7 @@ function Item({ item }) {
               {item.itemLink}
             </Link>
             <Typography color="text.secondary">{item.itemPrice},-</Typography>
+            {/* ^ currency formatter can be used https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat */}
           </Typography>
         }
       />

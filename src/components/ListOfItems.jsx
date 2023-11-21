@@ -80,6 +80,7 @@ function ListOfItems({
         variant="outlined"
         onClick={() => {
           handleDeleteItem();
+          // duplicates are getting remove together
         }}
       >
         Delete Selected

@@ -9,6 +9,7 @@ const Feed = ({ items }) => {
       {items.map((item, index) => (
         <Post
           key={index}
+          // using index as a key is not safe https://blog.anja-stricker.de/why-using-index-as-key-in-reactjs-map-function-can-cause-problems-and-how-to-fix-them
           itemName={item.itemName}
           itemLink={item.itemLink}
           itemImage={item.itemImage}

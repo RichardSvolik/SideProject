@@ -18,6 +18,9 @@ const Feed = ({ items, setItems }) => {
   const [itemCategory, setItemCategory] = useState("");
   const [itemPrice, setItemPrice] = useState("");
 
+  // ^^ for code readibility it would be better to use one state value
+  // check useReducer
+
   // const [valueName, setValueName] = useState("");
   // const [valueLink, setValueLink] = useState("");
   // const [valueImage, setValueImage] = useState("");
@@ -106,6 +109,7 @@ const Feed = ({ items, setItems }) => {
 
   useEffect(() => {
     localStorage.setItem("items", JSON.stringify(items));
+    // this saves data all the time even if you do not save them
   }, [items]);
 
   return (

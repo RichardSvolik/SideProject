@@ -27,6 +27,8 @@ const Sidebar = () => {
         padding: 2,
         display: { xs: "none", sm: "block" },
       }}
+
+      // styled components and sx used at some time, can lead to conflicts
     >
       <Box position="fixed">
         <List>

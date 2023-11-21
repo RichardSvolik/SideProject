@@ -41,6 +41,7 @@ const Post = ({ itemName, itemLink, itemImage, itemCategory, itemPrice }) => {
               }}
             >
               <Link href={itemLink} target="_blank" underline="none">
+                {/* ^^^ Link is used only for internal links in SPA, not for external ones  */}
                 {itemLink}
               </Link>
             </Typography>
@@ -56,6 +57,7 @@ const Post = ({ itemName, itemLink, itemImage, itemCategory, itemPrice }) => {
           component="img"
           image={itemImage}
           alt="Paella dish"
+          // ^^ really? :)
         />
         <CardContent>
           {itemImage}

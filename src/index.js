@@ -8,3 +8,6 @@ root.render(
       <App />
   </React.StrictMode>
 );
+
+
+// same as main.jsx ??

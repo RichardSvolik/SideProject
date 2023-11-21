@@ -52,6 +52,9 @@ const Navbar = () => {
   const handleClose = () => {
     setOpen(false);
   };
+
+  // ^^^ can be some toggleFn toggleMenu = () => setOpen(prev => !prev)
+
   return (
     <AppBar position="sticky">
       <StyledToolbar>

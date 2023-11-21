@@ -11,7 +11,7 @@ import { Routes, Route, BrowserRouter } from "react-router-dom";
 function App() {
   const [items, setItems] = useState(
     JSON.parse(localStorage.getItem("items")) || []
-  );
+  ); // global state management
   // console.log("items: ", items);
   return (
     <BrowserRouter basename="">
