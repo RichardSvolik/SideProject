@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 
 import { Box } from "@mui/material";
 import {
@@ -10,8 +10,10 @@ import {
   FormControl,
 } from "@mui/material";
 import ListOfItems from "./ListOfItems";
+import { itemContext } from "../App";
 
-const Feed = ({ items, setItems }) => {
+const AddItem = () => {
+  const { items, setItems } = useContext(itemContext);
   const [itemName, setItemName] = useState();
   const [itemLink, setItemLink] = useState();
   const [itemImage, setItemImage] = useState();
@@ -79,7 +81,6 @@ const Feed = ({ items, setItems }) => {
 
   const onAdd = () => {
     setItems([
-      ...items,
       {
         itemName: itemName,
         itemLink: itemLink,
@@ -89,7 +90,9 @@ const Feed = ({ items, setItems }) => {
         checked: false,
         itemPrice: itemPrice,
         itemId: Date.now(),
+        assignedTo: { name: "", email: "" },
       },
+      ...items,
     ]);
     clearTextFields();
     // setInvalidState();
@@ -185,8 +188,8 @@ const Feed = ({ items, setItems }) => {
       </Box>
       <Box>
         <ListOfItems
-          items={items}
-          setItems={setItems}
+          // items={items}
+          // setItems={setItems}
           setIsItemNameValid={setIsItemNameValid}
           setIsLinkValid={setIsLinkValid}
           onAdd={onAdd}
@@ -196,4 +199,4 @@ const Feed = ({ items, setItems }) => {
   );
 };
 
-export default Feed;
+export default AddItem;

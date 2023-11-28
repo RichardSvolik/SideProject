@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import { Button } from "@mui/material";
@@ -9,8 +10,10 @@ import { LibraryAdd } from "@mui/icons-material";
 import Checkbox from "@mui/material/Checkbox";
 
 import Item from "./Item";
+import { itemContext } from "../App";
 
-function ListOfItems({ items, setItems, setIsItemNameValid, setIsLinkValid }) {
+function ListOfItems({ setIsItemNameValid, setIsLinkValid }) {
+  const { items, setItems } = useContext(itemContext);
   const handleDeleteItem = (itemToDelete) => {
     let filteredItems = [];
     if (!itemToDelete) {
@@ -32,9 +35,9 @@ function ListOfItems({ items, setItems, setIsItemNameValid, setIsLinkValid }) {
     setItems([...items, duplicatedItem]);
   };
 
-  const handleCheckBoxChange = (selectedName) => {
+  const handleCheckBoxChange = (itemId) => {
     items.map((item) => {
-      if (item.itemId === selectedName) {
+      if (item.itemId === itemId) {
         item.checked = true;
       }
     });

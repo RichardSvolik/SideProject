@@ -1,35 +1,27 @@
 /* eslint-disable react/prop-types */
-import { FavoriteBorder, Favorite } from "@mui/icons-material";
 import {
   Card,
-  CardHeader,
-  Avatar,
-  IconButton,
   CardMedia,
   CardContent,
   Typography,
   CardActions,
-  Checkbox,
-  Button,
-  CardActionArea,
 } from "@mui/material";
 import { green } from "@mui/material/colors";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-import ShareIcon from "@mui/icons-material/Share";
-import { Link } from "react-router-dom";
 
-import BuyModal from "/src/components/buyModal";
+import AssignToModal from "./AssignToModal";
 
 const Post = ({
-  item,
+  itemContext,
   itemName,
-  itemLink,
   itemImage,
   itemCategory,
   itemPrice,
+  itemId,
+  item,
 }) => {
   return (
     <>
+      {itemContext}
       <Card sx={{ marginTop: 5 }}>
         <CardMedia
           sx={{
@@ -57,7 +49,7 @@ const Post = ({
         </CardContent>
 
         <CardActions>
-          <BuyModal itemImage={itemImage} itemName={itemName}></BuyModal>
+          <AssignToModal itemId={itemId} item={item}></AssignToModal>
         </CardActions>
       </Card>
     </>

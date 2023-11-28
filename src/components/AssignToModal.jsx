@@ -1,15 +1,15 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import {
   Avatar,
   Box,
   Button,
-  ButtonGroup,
   Modal,
   TextField,
   Tooltip,
   Typography,
   styled,
 } from "@mui/material";
+import { itemContext } from "../App";
 
 const StyledModal = styled(Modal)({
   display: "flex",
@@ -24,7 +24,10 @@ const UserBox = styled(Box)({
   marginBottom: "20px",
 });
 
-const BuyModal = ({ itemName, itemImage }) => {
+const AssignToModal = ({ itemId, item }) => {
+  console.log("item: ", item);
+  const { items } = useContext(itemContext);
+
   const [open, setOpen] = useState(false);
   const handleClick = () => {
     setOpen(true);
@@ -37,18 +40,28 @@ const BuyModal = ({ itemName, itemImage }) => {
   const [userName, setUserName] = useState();
 
   const onConfirm = () => {
-    console.log("name:", userName);
-    console.log("email:", userEmail);
+    items.forEach((item) => {
+      if (item.itemId === itemId) {
+        item.assignedTo = { email: userEmail, name: userName };
+      }
+      setOpen(false);
+    });
+    localStorage.setItem("items", JSON.stringify(items));
   };
-
   return (
     <>
-      <Tooltip onClick={handleClick} title="Delete">
-        <Button color="primary" aria-label="add">
-          Assign To
-        </Button>
+      <Tooltip onClick={handleClick}>
+        {item.assignedTo?.name ? (
+          <Typography variant="body2" color="text.secondary">
+            Assigned to {item.assignedTo.name}
+          </Typography>
+        ) : (
+          <Button color="primary" aria-label="add">
+            Assign To
+          </Button>
+        )}
       </Tooltip>
-      <Button onClick={handleClick}></Button>
+      {/* <Button onClick={handleClick}></Button> */}
       <StyledModal
         open={open}
         onClose={handleClose}
@@ -57,17 +70,17 @@ const BuyModal = ({ itemName, itemImage }) => {
       >
         <Box width={400} height={250} bgcolor="white" p={3} borderRadius={5}>
           <Typography variant="h6" color="gray" textAlign="center">
-            {itemName}
+            Assign to user
           </Typography>
           <UserBox>
             {/* <Avatar src={itemImage} sx={{ width: 30, height: 30 }} /> */}
             <Avatar
               sx={{ maxWidth: "fit-content" }}
               variant="rounded"
-              alt={itemName}
-              src={itemImage}
+              alt={item.itemName}
+              src={item.itemImage}
             />
-            <Typography fontWeight={500}>{itemName}</Typography>
+            <Typography fontWeight={500}>{item.itemName}</Typography>
           </UserBox>
           <TextField
             sx={{ width: "100%", paddingBottom: 2 }}
@@ -103,4 +116,4 @@ const BuyModal = ({ itemName, itemImage }) => {
   );
 };
 
-export default BuyModal;
+export default AssignToModal;
