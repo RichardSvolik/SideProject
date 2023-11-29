@@ -45,7 +45,7 @@ function Item({ item }) {
       }
     });
     localStorage.setItem("items", JSON.stringify(items));
-    // setItems(items);
+    setItems([...items]);
   };
 
   return (

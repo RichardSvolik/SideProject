@@ -25,7 +25,6 @@ const UserBox = styled(Box)({
 });
 
 const AssignToModal = ({ itemId, item }) => {
-  console.log("item: ", item);
   const { items } = useContext(itemContext);
 
   const [open, setOpen] = useState(false);

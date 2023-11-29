@@ -22,6 +22,7 @@ function App() {
             <Sidebar />
             <Routes>
               <Route path="/feed" element={<Feed />} />
+              <Route path="/" element={<Feed />} />
               <Route path="/Rightbar" element={<Rightbar />} />
               <Route path="/AddItem" element={<AddItem />} />
             </Routes>

@@ -19,7 +19,6 @@ function ListOfItems({ setIsItemNameValid, setIsLinkValid }) {
     if (!itemToDelete) {
       filteredItems = items.filter((item) => !item.checked);
     } else filteredItems = items.filter((item) => item.itemId !== itemToDelete);
-    console.log("filteredItems: ", filteredItems);
     localStorage.clear();
     localStorage.setItem("items", JSON.stringify(items));
     setItems(filteredItems);
@@ -28,7 +27,6 @@ function ListOfItems({ setIsItemNameValid, setIsLinkValid }) {
   };
 
   const handleDuplicateItem = (itemId) => {
-    console.log("itemId: ", itemId);
     const filteredItem = items.find((item) => item.itemId === itemId);
     const duplicatedItem = { ...filteredItem };
     duplicatedItem.itemId = Date.now();
