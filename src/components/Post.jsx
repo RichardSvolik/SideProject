@@ -16,7 +16,7 @@ const Post = ({
   itemImage,
   itemCategory,
   itemPrice,
-  itemId,
+  id,
   item,
 }) => {
   return (
@@ -49,7 +49,7 @@ const Post = ({
         </CardContent>
 
         <CardActions>
-          <AssignToModal itemId={itemId} item={item}></AssignToModal>
+          <AssignToModal id={id} item={item}></AssignToModal>
         </CardActions>
       </Card>
     </>

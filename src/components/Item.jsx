@@ -31,7 +31,7 @@ function Item({ item }) {
     item.itemName = event.target.value;
     const localStorageData = JSON.parse(localStorage.getItem("items"));
     localStorageData.map((localStorageItem) => {
-      if (localStorageItem.itemId === item.itemId)
+      if (localStorageItem.id === item.id)
         localStorageItem.itemName = item.itemName;
     });
     localStorage.clear();
@@ -40,7 +40,7 @@ function Item({ item }) {
 
   const handlePersonRemove = () => {
     items.forEach((currentItem) => {
-      if (currentItem.itemId === item.itemId) {
+      if (currentItem.id === item.id) {
         currentItem.assignedTo = { email: "", name: "" };
       }
     });

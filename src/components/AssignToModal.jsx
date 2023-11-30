@@ -24,7 +24,7 @@ const UserBox = styled(Box)({
   marginBottom: "20px",
 });
 
-const AssignToModal = ({ itemId, item }) => {
+const AssignToModal = ({ id, item }) => {
   const { items } = useContext(itemContext);
 
   const [open, setOpen] = useState(false);
@@ -40,7 +40,7 @@ const AssignToModal = ({ itemId, item }) => {
 
   const onConfirm = () => {
     items.forEach((item) => {
-      if (item.itemId === itemId) {
+      if (item.id === id) {
         item.assignedTo = { email: userEmail, name: userName };
       }
       setOpen(false);

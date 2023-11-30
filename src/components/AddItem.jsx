@@ -89,7 +89,7 @@ const AddItem = () => {
         itemCategory: itemCategory,
         checked: false,
         itemPrice: itemPrice,
-        itemId: Date.now(),
+        id: Date.now(),
         assignedTo: { name: "", email: "" },
       },
       ...items,

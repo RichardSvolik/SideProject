@@ -46,6 +46,12 @@ const UserBox = styled(Box)(({ theme }) => ({
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleSearch = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
   const handleClick = () => {
     setOpen(true);
   };
@@ -60,7 +66,12 @@ const Navbar = () => {
         </Typography>
         <Pets sx={{ display: { xs: "block", sm: "none" } }} />
         <Search>
-          <InputBase placeholder="search..." sx={{ width: "100%" }}></InputBase>
+          <InputBase
+            placeholder="search..."
+            sx={{ width: "100%" }}
+            onChange={handleSearch}
+            value={searchTerm}
+          ></InputBase>
         </Search>
         <Icons>
           <Badge badgeContent={4} color="error">

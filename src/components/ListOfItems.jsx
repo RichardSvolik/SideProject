@@ -18,7 +18,7 @@ function ListOfItems({ setIsItemNameValid, setIsLinkValid }) {
     let filteredItems = [];
     if (!itemToDelete) {
       filteredItems = items.filter((item) => !item.checked);
-    } else filteredItems = items.filter((item) => item.itemId !== itemToDelete);
+    } else filteredItems = items.filter((item) => item.id !== itemToDelete);
     localStorage.clear();
     localStorage.setItem("items", JSON.stringify(items));
     setItems(filteredItems);
@@ -26,16 +26,16 @@ function ListOfItems({ setIsItemNameValid, setIsLinkValid }) {
     setIsItemNameValid(false);
   };
 
-  const handleDuplicateItem = (itemId) => {
-    const filteredItem = items.find((item) => item.itemId === itemId);
+  const handleDuplicateItem = (id) => {
+    const filteredItem = items.find((item) => item.id === id);
     const duplicatedItem = { ...filteredItem };
-    duplicatedItem.itemId = Date.now();
+    duplicatedItem.id = Date.now();
     setItems([...items, duplicatedItem]);
   };
 
-  const handleCheckBoxChange = (itemId) => {
+  const handleCheckBoxChange = (id) => {
     items.map((item) => {
-      if (item.itemId === itemId) {
+      if (item.id === id) {
         item.checked = true;
       }
     });
@@ -51,17 +51,17 @@ function ListOfItems({ setIsItemNameValid, setIsLinkValid }) {
               <ListItem key={item.itemName} alignItems="center">
                 <Checkbox
                   edge="start"
-                  onChange={() => handleCheckBoxChange(item.itemId)}
+                  onChange={() => handleCheckBoxChange(item.id)}
                 />
                 <Item item={item} />
                 <IconButton
                   edge="end"
                   aria-label="delete"
-                  onClick={() => handleDeleteItem(item.itemId)}
+                  onClick={() => handleDeleteItem(item.id)}
                 >
                   <DeleteIcon />
                 </IconButton>
-                <IconButton onClick={() => handleDuplicateItem(item.itemId)}>
+                <IconButton onClick={() => handleDuplicateItem(item.id)}>
                   <LibraryAdd />
                 </IconButton>
               </ListItem>
