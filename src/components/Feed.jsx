@@ -1,20 +1,25 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useContext } from "react";
-import { itemContext } from "../App";
-import { Box } from "@mui/material";
+import { Box, TextField } from "@mui/material";
 import Post from "./Post";
 import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 
+import { itemContext } from "../App";
+
 const Feed = () => {
   const { items } = useContext(itemContext);
 
   const [isAscending, setIsAscending] = useState();
-  const [filteredItems, setFilteredItems] = useState(items);
-  const [isAssignedFilterHidden, setIsAssignedFilterHidden] = useState(false);
+
+  const [searchedValue, setSearchedValue] = useState("");
+  const [searchedItems, setSearchedItems] = useState(items);
+  const [finalItems, setFinalItems] = useState(items);
+
+  const [showAvailableButton, setShowAvailableButton] = useState(true);
 
   const SortingButton = styled(Button)({
     background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
@@ -28,60 +33,102 @@ const Feed = () => {
   });
 
   const sortByPrice = () => {
-    console.log(items);
     if (isAscending) {
-      filteredItems.sort((a, b) => a.itemPrice - b.itemPrice);
+      searchedItems.sort((a, b) => a.itemPrice - b.itemPrice);
       setIsAscending(false);
     } else {
-      filteredItems.sort((a, b) => b.itemPrice - a.itemPrice);
+      searchedItems.sort((a, b) => b.itemPrice - a.itemPrice);
       setIsAscending(true);
     }
-    console.log(items);
   };
 
-  const showUnasigned = () => {
-    if (filteredItems.length === items.length) {
-      const newFilteredItems = items.filter(
-        (item) => item.assignedTo.name === ""
-      );
-      setFilteredItems(newFilteredItems);
-      setIsAssignedFilterHidden(true);
-      console.log(newFilteredItems);
-    } else {
-      setFilteredItems(items);
-      setIsAssignedFilterHidden(false);
-      console.log(items);
-    }
+  const toggleAvailableButon = () => {
+    setShowAvailableButton((previous) => !previous);
   };
+
+  const showOnlyAvailable = () => {
+    const filteredAvailable = items.filter(
+      (item) => item.assignedTo.name === ""
+    );
+    const finalFilter = filteredAvailable.filter((item) =>
+      item.itemName.toLowerCase().includes(searchedValue)
+    );
+    console.log(finalFilter);
+    setSearchedItems(finalFilter);
+    setFinalItems(finalFilter);
+    toggleAvailableButon();
+  };
+
+  const showAll = () => {
+    if (searchedValue) {
+      const newSearchItems = items.filter((item) =>
+        item.itemName.toLowerCase().includes(searchedValue.toLowerCase())
+      );
+      console.log(newSearchItems);
+      setFinalItems(newSearchItems);
+    } else {
+      setFinalItems(items);
+    }
+    toggleAvailableButon();
+  };
+
+  const handleSearch = (event) => {
+    setSearchedValue(event.target.value.toLowerCase());
+  };
+
+  useEffect(() => {
+    setFinalItems(
+      items.filter((item) =>
+        item.itemName.toLowerCase().includes(searchedValue.toLowerCase())
+      )
+    );
+  }, [searchedValue, items]);
 
   return (
-    <Box sx={{ flex: 4, padding: 2 }}>
+    <>
       <Box sx={{ flex: 4, padding: 2 }}>
-        <SortingButton sx={{ marginRight: "20px" }} onClick={sortByPrice}>
-          Price {isAscending ? <ArrowUpwardIcon /> : <ArrowDownwardIcon />}
-        </SortingButton>
-        <SortingButton onClick={showUnasigned} sx={{ width: "230px" }}>
-          {isAssignedFilterHidden ? "Show all" : "Show only available"}
-        </SortingButton>
+        <TextField
+          sx={{ width: "100%" }}
+          label="Search"
+          variant="outlined"
+          onChange={handleSearch}
+          value={searchedValue}
+        ></TextField>
+
+        <Box sx={{ flex: 4, padding: 2 }}>
+          <SortingButton sx={{ marginRight: "20px" }} onClick={sortByPrice}>
+            Price {isAscending ? <ArrowUpwardIcon /> : <ArrowDownwardIcon />}
+          </SortingButton>
+          {showAvailableButton && (
+            <SortingButton onClick={showOnlyAvailable} sx={{ width: "230px" }}>
+              Show only available
+            </SortingButton>
+          )}
+          {!showAvailableButton && (
+            <SortingButton onClick={showAll} sx={{ width: "230px" }}>
+              Show all
+            </SortingButton>
+          )}
+        </Box>
+        <Box sx={{ flex: 4, padding: 2 }}>
+          {finalItems.map((item, index) => (
+            <Post
+              key={index}
+              itemName={item.itemName}
+              itemLink={item.itemLink}
+              itemImage={item.itemImage}
+              itemPrice={item.itemPrice}
+              itemCategory={item.itemCategory}
+              id={item.id}
+              assignedTo={item.assignedTo}
+              // setItems={setItems}
+              item={item}
+            />
+          ))}
+          {/* <Post items={items} /> */}
+        </Box>
       </Box>
-      <Box sx={{ flex: 4, padding: 2 }}>
-        {filteredItems.map((item, index) => (
-          <Post
-            key={index}
-            itemName={item.itemName}
-            itemLink={item.itemLink}
-            itemImage={item.itemImage}
-            itemPrice={item.itemPrice}
-            itemCategory={item.itemCategory}
-            id={item.id}
-            assignedTo={item.assignedTo}
-            // setItems={setItems}
-            item={item}
-          />
-        ))}
-        {/* <Post items={items} /> */}
-      </Box>
-    </Box>
+    </>
   );
 };
 

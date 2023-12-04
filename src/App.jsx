@@ -3,7 +3,7 @@ import { Box, Stack } from "@mui/material";
 import Feed from "./components/Feed";
 import AddItem from "./components/AddItem";
 import Sidebar from "./components/Sidebar";
-import Navbar from "./components/Topbar";
+import Topbar from "./components/Topbar";
 import Rightbar from "./components/Rightbar";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 
@@ -16,9 +16,9 @@ function App() {
   return (
     <BrowserRouter basename="">
       <Box>
-        <Navbar />
-        <Stack direction="row" spacing={2} justifyContent="space-between">
-          <itemContext.Provider value={{ items, setItems }}>
+        <itemContext.Provider value={{ items, setItems }}>
+          <Topbar />
+          <Stack direction="row" spacing={2} justifyContent="space-between">
             <Sidebar />
             <Routes>
               <Route path="/feed" element={<Feed />} />
@@ -27,8 +27,8 @@ function App() {
               <Route path="/AddItem" element={<AddItem />} />
             </Routes>
             <Rightbar />
-          </itemContext.Provider>
-        </Stack>
+          </Stack>
+        </itemContext.Provider>
       </Box>
     </BrowserRouter>
   );

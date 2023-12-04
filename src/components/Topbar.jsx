@@ -44,15 +44,10 @@ const UserBox = styled(Box)(({ theme }) => ({
   },
 }));
 
-const Navbar = () => {
+const Topbar = () => {
   const [open, setOpen] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
 
-  const handleSearch = (event) => {
-    setSearchTerm(event.target.value);
-  };
-
-  const handleClick = () => {
+  const handleOpen = () => {
     setOpen(true);
   };
   const handleClose = () => {
@@ -65,14 +60,6 @@ const Navbar = () => {
           TEST
         </Typography>
         <Pets sx={{ display: { xs: "block", sm: "none" } }} />
-        <Search>
-          <InputBase
-            placeholder="search..."
-            sx={{ width: "100%" }}
-            onChange={handleSearch}
-            value={searchTerm}
-          ></InputBase>
-        </Search>
         <Icons>
           <Badge badgeContent={4} color="error">
             <Notifications />
@@ -83,7 +70,7 @@ const Navbar = () => {
           <Avatar
             alt="Cindy Baker"
             src="https://images.pexels.com/photos/846741/pexels-photo-846741.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-            onClick={handleClick}
+            onClick={handleOpen}
           />
           <UserBox>
             <Avatar
@@ -116,4 +103,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default Topbar;
