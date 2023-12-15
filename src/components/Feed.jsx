@@ -34,10 +34,10 @@ const Feed = () => {
 
   const sortByPrice = () => {
     if (isAscending) {
-      searchedItems.sort((a, b) => a.itemPrice - b.itemPrice);
+      finalItems.sort((a, b) => a.itemPrice - b.itemPrice);
       setIsAscending(false);
     } else {
-      searchedItems.sort((a, b) => b.itemPrice - a.itemPrice);
+      finalItems.sort((a, b) => b.itemPrice - a.itemPrice);
       setIsAscending(true);
     }
   };

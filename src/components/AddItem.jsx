@@ -74,11 +74,6 @@ const AddItem = () => {
     setItemCategory("");
   };
 
-  const setInvalidState = () => {
-    setIsLinkValid(false);
-    setIsItemNameValid(false);
-  };
-
   const onAdd = () => {
     setItems([
       {
@@ -188,8 +183,6 @@ const AddItem = () => {
       </Box>
       <Box>
         <ListOfItems
-          // items={items}
-          // setItems={setItems}
           setIsItemNameValid={setIsItemNameValid}
           setIsLinkValid={setIsLinkValid}
           onAdd={onAdd}
