@@ -16,7 +16,6 @@ const Feed = () => {
   const [isAscending, setIsAscending] = useState();
 
   const [searchedValue, setSearchedValue] = useState("");
-  const [searchedItems, setSearchedItems] = useState(items);
   const [finalItems, setFinalItems] = useState(items);
 
   const [showAvailableButton, setShowAvailableButton] = useState(true);
@@ -54,7 +53,6 @@ const Feed = () => {
       item.itemName.toLowerCase().includes(searchedValue)
     );
     console.log(finalFilter);
-    setSearchedItems(finalFilter);
     setFinalItems(finalFilter);
     toggleAvailableButon();
   };
@@ -85,50 +83,49 @@ const Feed = () => {
   }, [searchedValue, items]);
 
   return (
-    <>
-      <Box sx={{ flex: 4, padding: 2 }}>
-        <TextField
-          sx={{ width: "100%" }}
-          label="Search"
-          variant="outlined"
-          onChange={handleSearch}
-          value={searchedValue}
-        ></TextField>
-
-        <Box sx={{ flex: 4, padding: 2 }}>
-          <SortingButton sx={{ marginRight: "20px" }} onClick={sortByPrice}>
-            Price {isAscending ? <ArrowUpwardIcon /> : <ArrowDownwardIcon />}
-          </SortingButton>
-          {showAvailableButton && (
-            <SortingButton onClick={showOnlyAvailable} sx={{ width: "230px" }}>
-              Show only available
-            </SortingButton>
-          )}
-          {!showAvailableButton && (
-            <SortingButton onClick={showAll} sx={{ width: "230px" }}>
-              Show all
-            </SortingButton>
-          )}
-        </Box>
-        <Box sx={{ flex: 4, padding: 2 }}>
-          {finalItems.map((item, index) => (
-            <Post
-              key={index}
-              itemName={item.itemName}
-              itemLink={item.itemLink}
-              itemImage={item.itemImage}
-              itemPrice={item.itemPrice}
-              itemCategory={item.itemCategory}
-              id={item.id}
-              assignedTo={item.assignedTo}
-              // setItems={setItems}
-              item={item}
-            />
-          ))}
-          {/* <Post items={items} /> */}
-        </Box>
-      </Box>
-    </>
+    <Box
+      sx={{
+        flex: 2,
+        padding: 2,
+        paddingRight: "10%",
+        display: "block",
+        justifyContent: "center",
+      }}
+    >
+      <TextField
+        sx={{ width: "100%", paddingBottom: 2 }}
+        label="Search"
+        variant="outlined"
+        onChange={handleSearch}
+        value={searchedValue}
+      ></TextField>
+      <SortingButton sx={{ marginRight: "20px" }} onClick={sortByPrice}>
+        Price {isAscending ? <ArrowUpwardIcon /> : <ArrowDownwardIcon />}
+      </SortingButton>
+      {showAvailableButton && (
+        <SortingButton onClick={showOnlyAvailable} sx={{ width: "230px" }}>
+          Show only available
+        </SortingButton>
+      )}
+      {!showAvailableButton && (
+        <SortingButton onClick={showAll} sx={{ width: "230px" }}>
+          Show all
+        </SortingButton>
+      )}
+      {finalItems.map((item) => (
+        <Post
+          key={item.id}
+          itemName={item.itemName}
+          itemLink={item.itemLink}
+          itemImage={item.itemImage}
+          itemPrice={item.itemPrice}
+          itemCategory={item.itemCategory}
+          id={item.id}
+          assignedTo={item.assignedTo}
+          item={item}
+        />
+      ))}
+    </Box>
   );
 };
 

@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Box,
   List,
@@ -6,18 +5,8 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  Switch,
 } from "@mui/material";
-import {
-  Home,
-  Settings,
-  Person,
-  Storefront,
-  AccountBox,
-  ModeNight,
-  Article,
-  Group,
-} from "@mui/icons-material/";
+import { Home, Article } from "@mui/icons-material/";
 import { Link } from "react-router-dom";
 const Sidebar = () => {
   return (
@@ -25,7 +14,9 @@ const Sidebar = () => {
       sx={{
         flex: 1,
         padding: 2,
+        paddingLeft: "10%",
         display: { xs: "none", sm: "block" },
+        maxWidth: "150px",
       }}
     >
       <Box position="fixed">

@@ -98,97 +98,88 @@ const AddItem = () => {
   }, [items]);
 
   return (
-    <Box
-      sx={{
-        flex: 4,
-        padding: 2,
-      }}
-    >
+    <>
       <Box
         sx={{
-          flex: 1,
+          flex: 2,
           padding: 2,
-          flexDirection: "column",
+          paddingRight: "10%",
+          flexDirection: "block",
           justifyContent: "center",
         }}
       >
-        <TextField
-          error={!isItemNameValid}
-          id="outlined-basic"
-          helperText={!isItemNameValid ? "Insert Item name" : ""}
-          label="Item name"
-          variant="outlined"
-          value={itemName}
-          onChange={handleItemName}
-        />
-        <TextField
-          error={!isLinkValid}
-          helperText={!isLinkValid ? "invalid link" : ""}
-          id="outlined-basic"
-          label="Link"
-          value={itemLink}
-          variant="outlined"
-          onChange={handleItemLink}
-        />
-        <TextField
-          id="outlined-basic"
-          label="Image Link"
-          value={itemImage}
-          variant="outlined"
-          onChange={handleItemImage}
-        />
-        <TextField
-          error={!isPriceValid}
-          helperText={!isPriceValid ? "insert a number" : ""}
-          id="outlined-basic"
-          label="Price"
-          value={itemPrice}
-          variant="outlined"
-          onChange={handleItemPrice}
-        />
-        <FormControl>
-          <InputLabel id="demo-simple-select-label">Group</InputLabel>
-          <Select
-            sx={{ minWidth: 195 }}
-            value={itemCategory}
-            onChange={handleCategory}
-            label="Group"
+        <Box sx={{ paddingTop: 2 }}>
+          <TextField
+            error={!isItemNameValid}
+            id="outlined-basic"
+            helperText={!isItemNameValid ? "Insert Item name" : ""}
+            label="Item name"
+            variant="outlined"
+            value={itemName}
+            onChange={handleItemName}
+          />
+          <TextField
+            error={!isLinkValid}
+            helperText={!isLinkValid ? "invalid link" : ""}
+            id="outlined-basic"
+            label="Link"
+            value={itemLink}
+            variant="outlined"
+            onChange={handleItemLink}
+          />
+          <TextField
+            id="outlined-basic"
+            label="Image Link"
+            value={itemImage}
+            variant="outlined"
+            onChange={handleItemImage}
+          />
+          <TextField
+            error={!isPriceValid}
+            helperText={!isPriceValid ? "insert a number" : ""}
+            id="outlined-basic"
+            label="Price"
+            value={itemPrice}
+            variant="outlined"
+            onChange={handleItemPrice}
+          />
+          <FormControl>
+            <InputLabel id="demo-simple-select-label">Group</InputLabel>
+            <Select
+              sx={{ minWidth: 195 }}
+              value={itemCategory}
+              onChange={handleCategory}
+              label="Group"
+            >
+              <MenuItem value="Electronics">Electronics</MenuItem>
+              <MenuItem value="Food">Food</MenuItem>
+              <MenuItem value="Other">Other</MenuItem>
+            </Select>
+          </FormControl>
+        </Box>
+        <Box sx={{ p: 2 }}>
+          <Button
+            disabled={
+              !isItemNameValid ||
+              !isLinkValid ||
+              !isPriceValid ||
+              itemName.length === 0 ||
+              itemLink.length === 0
+            }
+            variant="contained"
+            onClick={() => onAdd()}
           >
-            <MenuItem value="Electronics">Electronics</MenuItem>
-            <MenuItem value="Food">Food</MenuItem>
-            <MenuItem value="Other">Other</MenuItem>
-          </Select>
-        </FormControl>
-      </Box>
-      <Box
-        sx={{
-          flex: 4,
-          padding: 2,
-        }}
-      >
-        <Button
-          disabled={
-            !isItemNameValid ||
-            !isLinkValid ||
-            !isPriceValid ||
-            itemName.length === 0 ||
-            itemLink.length === 0
-          }
-          variant="contained"
-          onClick={() => onAdd()}
-        >
-          Add
-        </Button>
-        <Button onClick={clearTextFields}>Clear</Button>
-      </Box>
-      <Box>
+            Add
+          </Button>
+          <Button onClick={clearTextFields}>Clear</Button>
+        </Box>
         <ListOfItems
           setIsItemNameValid={setIsItemNameValid}
           setIsLinkValid={setIsLinkValid}
           onAdd={onAdd}
         />
       </Box>
-    </Box>
+    </>
   );
 };
 

@@ -4,7 +4,7 @@ import Feed from "./components/Feed";
 import AddItem from "./components/AddItem";
 import Sidebar from "./components/Sidebar";
 import Topbar from "./components/Topbar";
-import Rightbar from "./components/Rightbar";
+// import Rightbar from "./components/Rightbar";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 
 export const itemContext = createContext();
@@ -23,10 +23,10 @@ function App() {
             <Routes>
               <Route path="/feed" element={<Feed />} />
               <Route path="/" element={<Feed />} />
-              <Route path="/Rightbar" element={<Rightbar />} />
+              {/* <Route path="/Rightbar" element={<Rightbar />} /> */}
               <Route path="/AddItem" element={<AddItem />} />
             </Routes>
-            <Rightbar />
+            {/* <Rightbar /> */}
           </Stack>
         </itemContext.Provider>
       </Box>

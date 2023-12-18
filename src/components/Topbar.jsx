@@ -1,106 +1,81 @@
 import { useState } from "react";
-import {
-  AppBar,
-  Toolbar,
-  Typography,
-  styled,
-  Box,
-  InputBase,
-  Badge,
-  Avatar,
-  Menu,
-  MenuItem,
-} from "@mui/material";
-import Pets from "@mui/icons-material/Pets";
-import { Mail, Notifications } from "@mui/icons-material";
-
-const StyledToolbar = styled(Toolbar)({
-  display: "flex",
-  justifyContent: "space-between",
-});
-
-const Search = styled("div")(({ theme }) => ({
-  backgroundColor: "white",
-  padding: "0 10px",
-  borderRadius: theme.shape.borderRadius,
-  width: "40%",
-}));
-
-const Icons = styled(Box)(({ theme }) => ({
-  display: "none",
-  alignItems: "center",
-  gap: "20px",
-  [theme.breakpoints.up("sm")]: {
-    display: "flex",
-  },
-}));
-
-const UserBox = styled(Box)(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  gap: "10px",
-  [theme.breakpoints.up("sm")]: {
-    display: "none",
-  },
-}));
+import { Link } from "react-router-dom";
+import { AppBar, Toolbar, Typography, Menu, MenuItem } from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
+import IconButton from "@mui/material/IconButton";
 
 const Topbar = () => {
-  const [open, setOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
 
-  const handleOpen = () => {
-    setOpen(true);
+  const toggleMenu = (event) => {
+    setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
-    setOpen(false);
+    setAnchorEl(null);
   };
+
   return (
     <AppBar position="sticky">
-      <StyledToolbar>
-        <Typography variant="h6" sx={{ display: { xs: "none", sm: "block" } }}>
-          TEST
+      <Toolbar>
+        <IconButton
+          size="large"
+          edge="start"
+          color="inherit"
+          aria-label="menu"
+          sx={{ mr: 2, display: { xs: "block", sm: "none" } }}
+          onClick={toggleMenu}
+        >
+          <MenuIcon />
+        </IconButton>
+        <Menu
+          id="menu-appbar"
+          anchorEl={anchorEl}
+          anchorOrigin={{
+            vertical: "top",
+            horizontal: "right",
+          }}
+          keepMounted
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "right",
+          }}
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
+        >
+          <MenuItem onClick={handleClose} component={Link} to="/Feed">
+            Feed
+          </MenuItem>
+          <MenuItem onClick={handleClose} component={Link} to="/AddItem">
+            Add Item
+          </MenuItem>
+        </Menu>
+        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          What I want for Christmas
         </Typography>
-        <Pets sx={{ display: { xs: "block", sm: "none" } }} />
-        <Icons>
-          <Badge badgeContent={4} color="error">
-            <Notifications />
-          </Badge>
-          <Badge badgeContent={4} color="error">
-            <Mail />
-          </Badge>
-          <Avatar
-            alt="Cindy Baker"
-            src="https://images.pexels.com/photos/846741/pexels-photo-846741.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-            onClick={handleOpen}
-          />
-          <UserBox>
-            <Avatar
-              alt="Cindy Baker"
-              src="https://images.pexels.com/photos/846741/pexels-photo-846741.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-            />
-            <Typography>John</Typography>
-          </UserBox>
-        </Icons>
-      </StyledToolbar>
-      <Menu
-        id="demo-positioned-menu"
-        aria-labelledby="demo-positioned-button"
-        open={open}
-        onClose={handleClose}
-        anchorOrigin={{
-          vertical: "top",
-          horizontal: "right",
-        }}
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "left",
-        }}
-      >
-        <MenuItem>Profile</MenuItem>
-        <MenuItem>My account</MenuItem>
-        <MenuItem>Logout</MenuItem>
-      </Menu>
+      </Toolbar>
     </AppBar>
   );
 };
 
 export default Topbar;
+
+{
+  /* <Toolbar>
+        <Box
+          sx={{
+            display: { xs: "block", sm: "none" },
+            position: "absolute",
+            left: 15,
+          }}
+        ></Box>
+
+        <Typography variant="h6" sx={{ display: { xs: "none", sm: "block" } }}>
+          What I want for christmas
+        </Typography>
+        <Typography variant="h6" sx={{ display: { xs: "block", sm: "none" } }}>
+          🎄
+        </Typography>
+      </Toolbar>
+      */
+}

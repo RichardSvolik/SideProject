@@ -28,11 +28,9 @@ const AssignToModal = ({ id, item }) => {
   const { items } = useContext(itemContext);
 
   const [open, setOpen] = useState(false);
-  const handleClick = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
+
+  const toggleModal = () => {
+    setOpen((prev) => !prev);
   };
 
   const [userEmail, setUserEmail] = useState();
@@ -49,7 +47,7 @@ const AssignToModal = ({ id, item }) => {
   };
   return (
     <>
-      <Tooltip onClick={handleClick}>
+      <Tooltip onClick={toggleModal}>
         {item.assignedTo?.name ? (
           <Typography variant="body2" color="text.secondary">
             Assigned to {item.assignedTo.name}
@@ -60,10 +58,9 @@ const AssignToModal = ({ id, item }) => {
           </Button>
         )}
       </Tooltip>
-      {/* <Button onClick={handleClick}></Button> */}
       <StyledModal
         open={open}
-        onClose={handleClose}
+        onClose={toggleModal}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
@@ -72,7 +69,6 @@ const AssignToModal = ({ id, item }) => {
             Assign to user
           </Typography>
           <UserBox>
-            {/* <Avatar src={itemImage} sx={{ width: 30, height: 30 }} /> */}
             <Avatar
               sx={{ maxWidth: "fit-content" }}
               variant="rounded"
