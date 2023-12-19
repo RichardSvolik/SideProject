@@ -82,14 +82,18 @@ const Feed = () => {
     );
   }, [searchedValue, items]);
 
+  useEffect(() => {
+    sortByPrice();
+  }, []);
+
   return (
     <Box
       sx={{
-        flex: 2,
+        flex: 4,
         padding: 2,
         paddingRight: "10%",
         display: "block",
-        justifyContent: "center",
+        justifyContent: "flex-start",
       }}
     >
       <TextField

@@ -14,7 +14,6 @@ const Sidebar = () => {
       sx={{
         flex: 1,
         padding: 2,
-        paddingLeft: "10%",
         display: { xs: "none", sm: "block" },
         maxWidth: "150px",
       }}

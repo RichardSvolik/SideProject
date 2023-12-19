@@ -103,9 +103,6 @@ const AddItem = () => {
         sx={{
           flex: 2,
           padding: 2,
-          paddingRight: "10%",
-          flexDirection: "block",
-          justifyContent: "center",
         }}
       >
         <Box sx={{ paddingTop: 2 }}>

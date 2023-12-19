@@ -15,7 +15,11 @@ function App() {
   );
   return (
     <BrowserRouter basename="">
-      <Box>
+      <Box
+        sx={{
+          maxWidth: 1000,
+        }}
+      >
         <itemContext.Provider value={{ items, setItems }}>
           <Topbar />
           <Stack direction="row" spacing={2} justifyContent="space-between">
