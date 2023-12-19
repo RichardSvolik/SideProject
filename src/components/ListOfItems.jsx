@@ -42,7 +42,13 @@ function ListOfItems({ setIsItemNameValid, setIsLinkValid }) {
   };
 
   return (
-    <Box sx={{ flex: 3, padding: 2 }}>
+    <Box
+      sx={{
+        flex: 3,
+        padding: 2,
+        maxWidth: "70%",
+      }}
+    >
       <Box>
         {items.map((item) => (
           <>

@@ -6,7 +6,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import CheckIcon from "@mui/icons-material/Check";
 import { TextField } from "@mui/material";
 import ListItemText from "@mui/material/ListItemText";
-import { Typography, Link } from "@mui/material";
+import { Typography, Link, Box } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import { PersonRemove } from "@mui/icons-material";
 import { green } from "@mui/material/colors";
@@ -99,9 +99,11 @@ function Item({ item }) {
             variant="body2"
             color="text.primary"
           >
-            <Link href={item.itemLink} target="_blank" underline="none">
-              {item.itemLink}
-            </Link>
+            <Box sx={{ maxWidth: "200px" }}>
+              <Typography noWrap>
+                <Link href={item.itemLink}>Link to web</Link>
+              </Typography>
+            </Box>
             <Typography sx={{ color: green[800] }}>
               {item.itemPrice},-
             </Typography>

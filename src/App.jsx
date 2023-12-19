@@ -1,5 +1,5 @@
 import { useState, createContext } from "react";
-import { Box, Stack } from "@mui/material";
+import { Box, Stack, AppBar } from "@mui/material";
 import Feed from "./components/Feed";
 import AddItem from "./components/AddItem";
 import Sidebar from "./components/Sidebar";
@@ -15,25 +15,52 @@ function App() {
   );
   return (
     <BrowserRouter basename="">
-      <Box
+      {/* <Box
         sx={{
           maxWidth: 1000,
         }}
-      >
-        <itemContext.Provider value={{ items, setItems }}>
-          <Topbar />
-          <Stack direction="row" spacing={2} justifyContent="space-between">
-            <Sidebar />
-            <Routes>
-              <Route path="/feed" element={<Feed />} />
-              <Route path="/" element={<Feed />} />
-              {/* <Route path="/Rightbar" element={<Rightbar />} /> */}
-              <Route path="/AddItem" element={<AddItem />} />
-            </Routes>
-            {/* <Rightbar /> */}
-          </Stack>
-        </itemContext.Provider>
-      </Box>
+      > */}
+      <itemContext.Provider value={{ items, setItems }}>
+        <Topbar />
+        <Stack direction="row" spacing={2}>
+          <Box sx={{ display: "flex", justifyContent: "center" }}>
+            <Box
+              sx={{
+                display: { xs: "none", sm: "flex" },
+              }}
+            >
+              <Box flexGrow={0}>
+                <AppBar
+                  elevation={0}
+                  position="sticky"
+                  sx={{ top: "80px", color: "black", backgroundColor: "white" }}
+                >
+                  <Sidebar />
+                </AppBar>
+              </Box>
+              {/* <Sidebar /> */}
+            </Box>
+            <Box
+              sx={{
+                maxWidth: "1000px",
+                p: 2,
+                display: "flex",
+                flexDirection: "column",
+                gap: "20px",
+              }}
+            >
+              <Routes>
+                <Route path="/feed" element={<Feed />} />
+                <Route path="/" element={<Feed />} />
+                {/* <Route path="/Rightbar" element={<Rightbar />} /> */}
+                <Route path="/AddItem" element={<AddItem />} />
+              </Routes>
+            </Box>
+          </Box>
+          {/* <Rightbar /> */}
+        </Stack>
+      </itemContext.Provider>
+      {/* </Box> */}
     </BrowserRouter>
   );
 }

@@ -12,13 +12,12 @@ const Sidebar = () => {
   return (
     <Box
       sx={{
-        flex: 1,
         padding: 2,
-        display: { xs: "none", sm: "block" },
-        maxWidth: "150px",
+        borderColor: "blue",
+        width: 200,
       }}
     >
-      <Box position="fixed">
+      <Box>
         <List>
           <ListItem disablePadding>
             <ListItemButton component={Link} to="/Feed">
