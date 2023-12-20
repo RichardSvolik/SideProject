@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useContext } from "react";
-import { Box, TextField } from "@mui/material";
+import { Box, TextField, Switch, FormControlLabel } from "@mui/material";
 import Post from "./Post";
 import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
@@ -11,15 +11,6 @@ import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import { itemContext } from "../App";
 
 const Feed = () => {
-  const { items } = useContext(itemContext);
-
-  const [isAscending, setIsAscending] = useState();
-
-  const [searchedValue, setSearchedValue] = useState("");
-  const [finalItems, setFinalItems] = useState(items);
-
-  const [showAvailableButton, setShowAvailableButton] = useState(true);
-
   const SortingButton = styled(Button)({
     background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
     border: 0,
@@ -31,60 +22,48 @@ const Feed = () => {
     margin: "50x",
   });
 
+  const { items } = useContext(itemContext);
+
+  const [isAscending, setIsAscending] = useState();
+  const [searchedValue, setSearchedValue] = useState("");
+  const [checkedAvailable, setChecked] = useState(false);
+
+  const handleShowAvailableSwitch = (event) => {
+    setChecked(event.target.checked);
+  };
+
   const sortByPrice = () => {
     if (isAscending) {
-      finalItems.sort((a, b) => a.itemPrice - b.itemPrice);
       setIsAscending(false);
     } else {
-      finalItems.sort((a, b) => b.itemPrice - a.itemPrice);
       setIsAscending(true);
     }
-  };
-
-  const toggleAvailableButon = () => {
-    setShowAvailableButton((previous) => !previous);
-  };
-
-  const showOnlyAvailable = () => {
-    const filteredAvailable = items.filter(
-      (item) => item.assignedTo.name === ""
-    );
-    const finalFilter = filteredAvailable.filter((item) =>
-      item.itemName.toLowerCase().includes(searchedValue)
-    );
-    console.log(finalFilter);
-    setFinalItems(finalFilter);
-    toggleAvailableButon();
-  };
-
-  const showAll = () => {
-    if (searchedValue) {
-      const newSearchItems = items.filter((item) =>
-        item.itemName.toLowerCase().includes(searchedValue.toLowerCase())
-      );
-      console.log(newSearchItems);
-      setFinalItems(newSearchItems);
-    } else {
-      setFinalItems(items);
-    }
-    toggleAvailableButon();
   };
 
   const handleSearch = (event) => {
     setSearchedValue(event.target.value.toLowerCase());
   };
 
-  useEffect(() => {
-    setFinalItems(
-      items.filter((item) =>
-        item.itemName.toLowerCase().includes(searchedValue.toLowerCase())
-      )
-    );
-  }, [searchedValue, items]);
+  const filterByAvailable = (item) => {
+    if (!checkedAvailable) {
+      return true;
+    }
+    return !item.assignedTo.name;
+  };
 
-  useEffect(() => {
-    sortByPrice();
-  }, []);
+  const filterBySearch = (item) =>
+    item.itemName.toLowerCase().includes(searchedValue.toLowerCase());
+
+  const getFinalItems = () => {
+    return items
+      .filter((item) => filterByAvailable(item) && filterBySearch(item))
+      .sort((a, b) => {
+        if (isAscending) {
+          return a.itemPrice - b.itemPrice;
+        }
+        return b.itemPrice - a.itemPrice;
+      });
+  };
 
   return (
     <Box
@@ -106,17 +85,19 @@ const Feed = () => {
       <SortingButton sx={{ marginRight: "20px" }} onClick={sortByPrice}>
         Price {isAscending ? <ArrowUpwardIcon /> : <ArrowDownwardIcon />}
       </SortingButton>
-      {showAvailableButton && (
-        <SortingButton onClick={showOnlyAvailable} sx={{ width: "230px" }}>
-          Show only available
-        </SortingButton>
-      )}
-      {!showAvailableButton && (
-        <SortingButton onClick={showAll} sx={{ width: "230px" }}>
-          Show all
-        </SortingButton>
-      )}
-      {finalItems.map((item) => (
+      <FormControlLabel
+        control={
+          <Switch
+            checked={checkedAvailable}
+            onChange={handleShowAvailableSwitch}
+            inputProps={{ "aria-label": "controlled" }}
+          />
+        }
+        label="Show only available"
+        labelPlacement="start"
+      />
+
+      {getFinalItems().map((item) => (
         <Post
           key={item.id}
           itemName={item.itemName}

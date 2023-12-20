@@ -54,7 +54,7 @@ function ListOfItems({ setIsItemNameValid, setIsLinkValid }) {
           <>
             <List sx={{ bgcolor: "background.paper" }}>
               <Divider variant="inset" component="li" />
-              <ListItem key={item.itemName} alignItems="center">
+              <ListItem key={item.id} alignItems="center">
                 <Checkbox
                   edge="start"
                   onChange={() => handleCheckBoxChange(item.id)}

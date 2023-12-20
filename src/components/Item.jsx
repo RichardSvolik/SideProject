@@ -59,7 +59,6 @@ function Item({ item }) {
         />
       </ListItemAvatar>
       <ListItemText
-        noWrap
         style={{
           maxWidth: "500px",
           overflow: "hidden",
