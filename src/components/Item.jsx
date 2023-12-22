@@ -3,8 +3,8 @@ import { useState, useContext } from "react";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 import EditIcon from "@mui/icons-material/Edit";
-import CheckIcon from "@mui/icons-material/Check";
-import { TextField } from "@mui/material";
+
+import { TextField, Button } from "@mui/material";
 import ListItemText from "@mui/material/ListItemText";
 import { Typography, Link, Box } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
@@ -12,6 +12,8 @@ import { PersonRemove } from "@mui/icons-material";
 import { green } from "@mui/material/colors";
 
 import { itemContext } from "../App";
+import NotEditableItem from "./NotEditableItem";
+import EditableItem from "./EditableItem";
 
 // import { itemContext } from "../App";
 
@@ -21,9 +23,12 @@ function Item({ item }) {
 
   const { items, setItems } = useContext(itemContext);
 
-  const handleEdit = (event) => {
-    if (event.key === "Enter") console.log("Enter key pressed");
+  const handleEditName = () => {
     setIsEditMode((previous) => !previous);
+  };
+
+  const handleEditLink = () => {
+    console.log("edit link");
   };
 
   const handleItemNameChanged = (event) => {
@@ -58,75 +63,28 @@ function Item({ item }) {
           src={item.itemImage}
         />
       </ListItemAvatar>
-      <ListItemText
-        style={{
-          maxWidth: "500px",
-          overflow: "hidden",
-          textOverflow: "ellipsis",
-        }}
-        primary={
-          <>
-            <Typography display={isEditMode ? "none" : "block"}>
-              {item.itemName}
-              <IconButton onClick={handleEdit} aria-label="edit">
-                <EditIcon />
-              </IconButton>
-            </Typography>
-            {isEditMode && (
-              <TextField
-                sx={{ width: "100%" }}
-                size="small"
-                label="Item name"
-                value={textToEdit}
-                onChange={handleItemNameChanged}
-                InputProps={{
-                  endAdornment: (
-                    <IconButton onClick={handleEdit} onKeyDown={handleEdit}>
-                      <CheckIcon />
-                    </IconButton>
-                  ),
-                }}
-              ></TextField>
-            )}
-          </>
-        }
-        secondary={
-          <Typography
-            noWrap
-            sx={{ display: "inline" }}
-            component="span"
-            variant="body2"
-            color="text.primary"
-          >
-            <Box sx={{ maxWidth: "200px" }}>
-              <Typography noWrap>
-                <Link href={item.itemLink}>Link to web</Link>
-              </Typography>
-            </Box>
-            <Typography sx={{ color: green[800] }}>
-              {item.itemPrice},-
-            </Typography>
-            <Typography
-              color="text.secondary"
-              sx={{
-                display: "flex",
-                alignItems: "center",
-              }}
-            >
-              {item.assignedTo?.name ? (
-                <>
-                  {item.assignedTo.name}
-                  <IconButton onClick={handlePersonRemove} aria-label="edit">
-                    <PersonRemove />
-                  </IconButton>
-                </>
-              ) : (
-                "Not assigned"
-              )}
-            </Typography>
-          </Typography>
-        }
-      />
+      {isEditMode ? (
+        <EditableItem
+          item={item}
+          setIsEditMode={setIsEditMode}
+          isEditMode={isEditMode}
+        />
+      ) : (
+        <NotEditableItem
+          item={item}
+          isEditMode={isEditMode}
+          textToEdit={textToEdit}
+          handleItemNameChanged={handleItemNameChanged}
+          handlePersonRemove={handlePersonRemove}
+          handleEditName={handleEditName}
+        />
+      )}
+
+      {!isEditMode && (
+        <IconButton onClick={handleEditName} aria-label="edit">
+          <EditIcon />
+        </IconButton>
+      )}
     </>
   );
 }
