@@ -59,23 +59,3 @@ const Topbar = () => {
 };
 
 export default Topbar;
-
-{
-  /* <Toolbar>
-        <Box
-          sx={{
-            display: { xs: "block", sm: "none" },
-            position: "absolute",
-            left: 15,
-          }}
-        ></Box>
-
-        <Typography variant="h6" sx={{ display: { xs: "none", sm: "block" } }}>
-          What I want for christmas
-        </Typography>
-        <Typography variant="h6" sx={{ display: { xs: "block", sm: "none" } }}>
-          🎄
-        </Typography>
-      </Toolbar>
-      */
-}

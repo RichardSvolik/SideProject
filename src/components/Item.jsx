@@ -4,18 +4,11 @@ import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 import EditIcon from "@mui/icons-material/Edit";
 
-import { TextField, Button } from "@mui/material";
-import ListItemText from "@mui/material/ListItemText";
-import { Typography, Link, Box } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
-import { PersonRemove } from "@mui/icons-material";
-import { green } from "@mui/material/colors";
 
 import { itemContext } from "../App";
 import NotEditableItem from "./NotEditableItem";
 import EditableItem from "./EditableItem";
-
-// import { itemContext } from "../App";
 
 function Item({ item }) {
   const [isEditMode, setIsEditMode] = useState(false);
@@ -25,10 +18,6 @@ function Item({ item }) {
 
   const handleEditName = () => {
     setIsEditMode((previous) => !previous);
-  };
-
-  const handleEditLink = () => {
-    console.log("edit link");
   };
 
   const handleItemNameChanged = (event) => {

@@ -20,8 +20,6 @@ function NotEditableItem({ item, handlePersonRemove }) {
     localStorage.clear();
     localStorage.setItem("items", JSON.stringify(items));
     setItems(filteredItems);
-    // setIsLinkValid(false);
-    // setIsItemNameValid(false);
   };
 
   const handleDuplicateItem = (id) => {
