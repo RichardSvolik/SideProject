@@ -5,6 +5,7 @@ import {
   CardContent,
   Typography,
   CardActions,
+  Link,
 } from "@mui/material";
 import { green } from "@mui/material/colors";
 
@@ -45,6 +46,11 @@ const Post = ({
           </Typography>
           <Typography variant="body2" style={{ color: green[600] }}>
             {itemPrice}
+          </Typography>
+          <Typography noWrap>
+            <Link underline="none" target="_blank" href={item.itemLink}>
+              Where to buy
+            </Link>
           </Typography>
         </CardContent>
 
