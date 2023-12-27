@@ -13,9 +13,17 @@ function App() {
   const [items, setItems] = useState(
     JSON.parse(localStorage.getItem("items")) || []
   );
+
+  const selectOptions = [
+    { label: "All Categories", value: "All Categories" },
+    { label: "Electronics", value: "Electronics" },
+    { label: "Food", value: "Food" },
+    { label: "Other", value: "Other" },
+  ];
+
   return (
     <BrowserRouter basename="">
-      <itemContext.Provider value={{ items, setItems }}>
+      <itemContext.Provider value={{ items, setItems, selectOptions }}>
         <Topbar />
         <Stack direction="row" spacing={2}>
           <Box sx={{ display: "flex", justifyContent: "center" }}>

@@ -48,7 +48,12 @@ const Post = ({
             {itemPrice}
           </Typography>
           <Typography noWrap>
-            <Link underline="none" target="_blank" href={item.itemLink}>
+            <Link
+              color="orange"
+              underline="none"
+              target="_blank"
+              href={item.itemLink}
+            >
               Where to buy
             </Link>
           </Typography>

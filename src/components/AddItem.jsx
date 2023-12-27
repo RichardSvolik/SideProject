@@ -13,7 +13,7 @@ import ListOfItems from "./ListOfItems";
 import { itemContext } from "../App";
 
 const AddItem = () => {
-  const { items, setItems } = useContext(itemContext);
+  const { items, setItems, selectOptions } = useContext(itemContext);
   const [itemName, setItemName] = useState();
   const [itemLink, setItemLink] = useState();
   const [itemImage, setItemImage] = useState();
@@ -102,7 +102,7 @@ const AddItem = () => {
       <Box sx={{ display: "flex", flexWrap: "wrap", gap: 2 }}>
         <TextField
           error={!isItemNameValid}
-          id="outlined-basic"
+          id="item-name"
           helperText={!isItemNameValid ? "Insert Item name" : ""}
           label="Item name"
           variant="outlined"
@@ -112,14 +112,14 @@ const AddItem = () => {
         <TextField
           error={!isLinkValid}
           helperText={!isLinkValid ? "invalid link" : ""}
-          id="outlined-basic"
+          id="item-link"
           label="Link"
           value={itemLink}
           variant="outlined"
           onChange={handleItemLink}
         />
         <TextField
-          id="outlined-basic"
+          id="item-image"
           label="Image Link"
           value={itemImage}
           variant="outlined"
@@ -128,23 +128,26 @@ const AddItem = () => {
         <TextField
           error={!isPriceValid}
           helperText={!isPriceValid ? "insert a number" : ""}
-          id="outlined-basic"
+          id="item-price"
           label="Price"
           value={itemPrice}
           variant="outlined"
           onChange={handleItemPrice}
         />
         <FormControl>
-          <InputLabel id="demo-simple-select-label">Group</InputLabel>
+          <InputLabel id="item-select-category">Category</InputLabel>
           <Select
+            error={!itemCategory}
             sx={{ minWidth: 195 }}
             value={itemCategory}
             onChange={handleCategory}
-            label="Group"
+            label="Category"
           >
-            <MenuItem value="Electronics">Electronics</MenuItem>
-            <MenuItem value="Food">Food</MenuItem>
-            <MenuItem value="Other">Other</MenuItem>
+            {selectOptions.slice(1).map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
           </Select>
         </FormControl>
       </Box>
@@ -155,7 +158,8 @@ const AddItem = () => {
             !isLinkValid ||
             !isPriceValid ||
             itemName.length === 0 ||
-            itemLink.length === 0
+            itemLink.length === 0 ||
+            !itemCategory
           }
           variant="contained"
           onClick={() => onAdd()}
