@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
@@ -6,15 +6,12 @@ import EditIcon from "@mui/icons-material/Edit";
 
 import IconButton from "@mui/material/IconButton";
 
-import { itemContext } from "../App";
 import NotEditableItem from "./NotEditableItem";
 import EditableItem from "./EditableItem";
 
 function Item({ item }) {
   const [isEditMode, setIsEditMode] = useState(false);
   const [textToEdit, setTextToEdit] = useState(item.itemName);
-
-  const { items, setItems } = useContext(itemContext);
 
   const handleEditName = () => {
     setIsEditMode((previous) => !previous);
@@ -30,16 +27,6 @@ function Item({ item }) {
     });
     localStorage.clear();
     localStorage.setItem("items", JSON.stringify(localStorageData));
-  };
-
-  const handlePersonRemove = () => {
-    items.forEach((currentItem) => {
-      if (currentItem.id === item.id) {
-        currentItem.assignedTo = { email: "", name: "" };
-      }
-    });
-    localStorage.setItem("items", JSON.stringify(items));
-    setItems([...items]);
   };
 
   return (
@@ -64,13 +51,13 @@ function Item({ item }) {
           isEditMode={isEditMode}
           textToEdit={textToEdit}
           handleItemNameChanged={handleItemNameChanged}
-          handlePersonRemove={handlePersonRemove}
+          // handlePersonRemove={handlePersonRemove}
           handleEditName={handleEditName}
         />
       )}
 
       {!isEditMode && (
-        <IconButton onClick={handleEditName} aria-label="edit">
+        <IconButton onClick={handleEditName} aria-label="editItem">
           <EditIcon />
         </IconButton>
       )}

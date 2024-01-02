@@ -9,9 +9,6 @@ import { itemContext } from "../App";
 function EditableItem({ item, setIsEditMode }) {
   const { items, setItems } = useContext(itemContext);
   const [editedItem, setEditedItem] = useState(item);
-  const [editedItemAssignedTo, seteditedItemAssignedTo] = useState(
-    item.assignedTo
-  );
 
   const handleEditName = () => {
     setIsEditMode((previous) => !previous);
@@ -44,17 +41,17 @@ function EditableItem({ item, setIsEditMode }) {
         break;
       case ATTRIBUDE_NAME.ASSIGNED_TO_NAME:
         {
-          seteditedItemAssignedTo((prev) => ({
+          setEditedItem((prev) => ({
             ...prev,
-            name: event.target.value,
+            assignedTo: { ...prev.assignedTo, name: event.target.value },
           }));
         }
         break;
       case ATTRIBUDE_NAME.ASSIGNED_TO_EMAIL: {
         {
-          seteditedItemAssignedTo((prev) => ({
+          setEditedItem((prev) => ({
             ...prev,
-            email: event.target.value,
+            assignedTo: { ...prev.assignedTo, email: event.target.value },
           }));
         }
       }
@@ -63,17 +60,13 @@ function EditableItem({ item, setIsEditMode }) {
 
   const updateItems = () => {
     console.log(editedItem);
-    items.map((item) => {
+    const newItems = items.map((item) => {
       console.log(item);
       if (item.id === editedItem.id) {
-        item.itemName = editedItem.itemName;
-        item.itemLink = editedItem.itemLink;
-        item.itemPrice = editedItem.itemPrice;
-        item.assignedTo.name = editedItemAssignedTo.name;
-        item.assignedTo.email = editedItemAssignedTo.email;
-      } else item;
+        return editedItem;
+      } else return item;
     });
-    setItems(items);
+    setItems(newItems);
     setIsEditMode(false);
     saveToLocalStorage();
   };
@@ -137,7 +130,7 @@ function EditableItem({ item, setIsEditMode }) {
           <TextField
             size="small"
             label="Name"
-            value={editedItemAssignedTo.name}
+            value={editedItem.assignedTo.name}
             onChange={(event) =>
               handleItemChanged(event, ATTRIBUDE_NAME.ASSIGNED_TO_NAME)
             }
@@ -145,7 +138,7 @@ function EditableItem({ item, setIsEditMode }) {
           <TextField
             size="small"
             label="e-mail"
-            value={editedItemAssignedTo.email}
+            value={editedItem.assignedTo.email}
             onChange={(event) =>
               handleItemChanged(event, ATTRIBUDE_NAME.ASSIGNED_TO_EMAIL)
             }

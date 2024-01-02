@@ -9,8 +9,18 @@ import { LibraryAdd } from "@mui/icons-material";
 
 import { itemContext } from "../App";
 
-function NotEditableItem({ item, handlePersonRemove }) {
+function NotEditableItem({ item }) {
   const { items, setItems } = useContext(itemContext);
+
+  const handlePersonRemove = () => {
+    items.forEach((currentItem) => {
+      if (currentItem.id === item.id) {
+        currentItem.assignedTo = { email: "", name: "" };
+      }
+    });
+    localStorage.setItem("items", JSON.stringify(items));
+    setItems([...items]);
+  };
 
   const handleDeleteItem = (itemToDelete) => {
     let filteredItems = [];
@@ -60,7 +70,10 @@ function NotEditableItem({ item, handlePersonRemove }) {
               {item.assignedTo?.name ? (
                 <>
                   {item.assignedTo.name} {item.assignedTo.email}
-                  <IconButton onClick={handlePersonRemove} aria-label="edit">
+                  <IconButton
+                    onClick={handlePersonRemove}
+                    aria-label="personRemove"
+                  >
                     <PersonRemove />
                   </IconButton>
                 </>
@@ -73,12 +86,15 @@ function NotEditableItem({ item, handlePersonRemove }) {
       />
       <IconButton
         edge="end"
-        aria-label="delete"
+        aria-label="deleteItem"
         onClick={() => handleDeleteItem(item.id)}
       >
         <DeleteIcon />
       </IconButton>
-      <IconButton onClick={() => handleDuplicateItem(item.id)}>
+      <IconButton
+        aria-label="duplicateItem"
+        onClick={() => handleDuplicateItem(item.id)}
+      >
         <LibraryAdd />
       </IconButton>
     </>

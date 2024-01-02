@@ -113,7 +113,7 @@ const AddItem = () => {
           error={!isLinkValid}
           helperText={!isLinkValid ? "invalid link" : ""}
           id="item-link"
-          label="Link"
+          label="Item Link"
           value={itemLink}
           variant="outlined"
           onChange={handleItemLink}
