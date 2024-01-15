@@ -37,13 +37,21 @@ const AssignToModal = ({ id, item }) => {
   const [userName, setUserName] = useState();
 
   const onConfirm = () => {
-    items.forEach((item) => {
+    const newItems = items.map((item) => {
       if (item.id === id) {
-        item.assignedTo = { email: userEmail, name: userName };
+        return { email: userEmail, name: userName };
       }
-      setOpen(false);
+
+      return item
     });
-    localStorage.setItem("items", JSON.stringify(items));
+    // it's better to do it the immutability way
+    // if you are changing objects directly, it can get confusing
+
+    setOpen(false);
+    // ^ this should be outside the loop
+
+    localStorage.setItem("items", JSON.stringify(newItems));
+    //setItems(newItems)
   };
   return (
     <>
@@ -80,6 +88,7 @@ const AssignToModal = ({ id, item }) => {
           <TextField
             sx={{ width: "100%", paddingBottom: 2 }}
             id="standard-multiline-static"
+            // ^ this ID is used multiple times
             rows={1}
             placeholder="Name"
             variant="standard"
@@ -91,6 +100,7 @@ const AssignToModal = ({ id, item }) => {
             sx={{ width: "100%", paddingBottom: 2 }}
             id="standard-multiline-static"
             multiline
+            // email should not be multiline
             rows={1}
             placeholder="E-mail"
             variant="standard"
@@ -101,7 +111,8 @@ const AssignToModal = ({ id, item }) => {
           <Button
             variant="contained"
             aria-label="outlined primary button group"
-            onClick={() => onConfirm()}
+            // This is not a correct aria label
+            onClick={onConfirm}
           >
             Confirm
           </Button>

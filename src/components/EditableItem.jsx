@@ -14,7 +14,7 @@ function EditableItem({ item, setIsEditMode }) {
     setIsEditMode((previous) => !previous);
   };
 
-  const ATTRIBUDE_NAME = {
+  const ATTRIBUTE_NAME = {
     NAME: "NAME",
     LINK: "LINK",
     PRICE: "PRICE",
@@ -23,23 +23,26 @@ function EditableItem({ item, setIsEditMode }) {
   };
 
   const handleItemChanged = (event, attributeToChange) => {
+    // I would rather to see something like this
+    setEditedItem((prev) => ({ ...prev, [attributeToChange]: event.target.value }));
+
     switch (attributeToChange) {
-      case ATTRIBUDE_NAME.NAME:
+      case ATTRIBUTE_NAME.NAME:
         {
           setEditedItem((prev) => ({ ...prev, itemName: event.target.value }));
         }
         break;
-      case ATTRIBUDE_NAME.LINK:
+      case ATTRIBUTE_NAME.LINK:
         {
           setEditedItem((prev) => ({ ...prev, itemLink: event.target.value }));
         }
         break;
-      case ATTRIBUDE_NAME.PRICE:
+      case ATTRIBUTE_NAME.PRICE:
         {
           setEditedItem((prev) => ({ ...prev, itemPrice: event.target.value }));
         }
         break;
-      case ATTRIBUDE_NAME.ASSIGNED_TO_NAME:
+      case ATTRIBUTE_NAME.ASSIGNED_TO_NAME:
         {
           setEditedItem((prev) => ({
             ...prev,
@@ -47,7 +50,7 @@ function EditableItem({ item, setIsEditMode }) {
           }));
         }
         break;
-      case ATTRIBUDE_NAME.ASSIGNED_TO_EMAIL: {
+      case ATTRIBUTE_NAME.ASSIGNED_TO_EMAIL: {
         {
           setEditedItem((prev) => ({
             ...prev,
@@ -80,6 +83,10 @@ function EditableItem({ item, setIsEditMode }) {
         localStorageItem.itemPrice = item.itemPrice;
         localStorageItem.assignedTo.name = item.assignedTo.name;
         localStorageItem.assignedTo.email = item.assignedTo.email;
+
+        // map that does not return anything
+        // use map + return
+        // or forEach
       }
     });
     localStorage.clear();
@@ -106,19 +113,19 @@ function EditableItem({ item, setIsEditMode }) {
           size="small"
           label="Item"
           value={editedItem.itemName}
-          onChange={(event) => handleItemChanged(event, ATTRIBUDE_NAME.NAME)}
+          onChange={(event) => handleItemChanged(event, ATTRIBUTE_NAME.NAME)}
         ></TextField>
         <TextField
           size="small"
           label="Link"
           value={editedItem.itemLink}
-          onChange={(event) => handleItemChanged(event, ATTRIBUDE_NAME.LINK)}
+          onChange={(event) => handleItemChanged(event, ATTRIBUTE_NAME.LINK)}
         ></TextField>
         <TextField
           size="small"
           label="Price"
           value={editedItem.itemPrice}
-          onChange={(event) => handleItemChanged(event, ATTRIBUDE_NAME.PRICE)}
+          onChange={(event) => handleItemChanged(event, ATTRIBUTE_NAME.PRICE)}
         ></TextField>
         <Box
           sx={{
@@ -132,7 +139,7 @@ function EditableItem({ item, setIsEditMode }) {
             label="Name"
             value={editedItem.assignedTo.name}
             onChange={(event) =>
-              handleItemChanged(event, ATTRIBUDE_NAME.ASSIGNED_TO_NAME)
+              handleItemChanged(event, ATTRIBUTE_NAME.ASSIGNED_TO_NAME)
             }
           ></TextField>
           <TextField
@@ -140,7 +147,7 @@ function EditableItem({ item, setIsEditMode }) {
             label="e-mail"
             value={editedItem.assignedTo.email}
             onChange={(event) =>
-              handleItemChanged(event, ATTRIBUDE_NAME.ASSIGNED_TO_EMAIL)
+              handleItemChanged(event, ATTRIBUTE_NAME.ASSIGNED_TO_EMAIL)
             }
           ></TextField>
         </Box>

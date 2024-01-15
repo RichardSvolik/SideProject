@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 
 
 test.beforeEach(async ({ page }) => {
-
+  // empty beforeEach
 });
 
 test.only('add and delte items', async ({ page }) => {

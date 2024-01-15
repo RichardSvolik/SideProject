@@ -24,6 +24,7 @@ function Item({ item }) {
     localStorageData.map((localStorageItem) => {
       if (localStorageItem.id === item.id)
         localStorageItem.itemName = item.itemName;
+        //map X forEach
     });
     localStorage.clear();
     localStorage.setItem("items", JSON.stringify(localStorageData));

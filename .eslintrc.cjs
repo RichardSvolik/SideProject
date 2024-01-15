@@ -19,3 +19,5 @@ module.exports = {
     "react/prop-types": 0,
   },
 };
+
+// ^^ eslintrc.cjs and eslintrc.json at the same time

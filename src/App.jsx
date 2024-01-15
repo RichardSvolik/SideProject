@@ -8,6 +8,10 @@ import Topbar from "./components/Topbar";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 
 export const itemContext = createContext();
+// ^ Should be in a separate file 
+// App.js is an entrypoint to your application and it calls all other components
+// however, in the deeper components you also import context from App.js
+// so there is a circular dependency: App.js –> Component > App.js
 
 function App() {
   const [items, setItems] = useState(
@@ -16,6 +20,7 @@ function App() {
 
   const selectOptions = [
     { label: "All Categories", value: "All Categories" },
+    // Label and value are the same, maybe it's obsolete
     { label: "Electronics", value: "Electronics" },
     { label: "Food", value: "Food" },
     { label: "Other", value: "Other" },
@@ -23,6 +28,7 @@ function App() {
 
   return (
     <BrowserRouter basename="">
+      {/* ^^ it's a good practice to use a process variable to set basename, so you can upload the application on different urls */}
       <itemContext.Provider value={{ items, setItems, selectOptions }}>
         <Topbar />
         <Stack direction="row" spacing={2}>
@@ -37,10 +43,12 @@ function App() {
                   elevation={0}
                   position="sticky"
                   sx={{ top: "80px", color: "black", backgroundColor: "white" }}
+                  // ^ I think that top: 80 should also work
                 >
                   <Sidebar />
                 </AppBar>
               </Box>
+              {/* Some uncommented code here */}
               {/* <Sidebar /> */}
             </Box>
             <Box

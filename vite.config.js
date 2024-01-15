@@ -16,6 +16,8 @@ import react from "@vitejs/plugin-react";
 //   plugins: [react()],
 // };
 
+// ^ old commented code here
+
 export default defineConfig({
   server: { https: true }, // Not needed for Vite 5+
   plugins: [mkcert(), react()],

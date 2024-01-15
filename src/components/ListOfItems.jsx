@@ -11,11 +11,8 @@ import { itemContext } from "../App";
 
 function ListOfItems({ setIsItemNameValid, setIsLinkValid }) {
   const { items, setItems } = useContext(itemContext);
-  const handleDeleteItem = (itemToDelete) => {
-    let filteredItems = [];
-    if (!itemToDelete) {
-      filteredItems = items.filter((item) => !item.checked);
-    } else filteredItems = items.filter((item) => item.id !== itemToDelete);
+  const handleDeleteItem = () => {
+    let filteredItems = items.filter((item) => !item.checked);
     localStorage.clear();
     localStorage.setItem("items", JSON.stringify(items));
     setItems(filteredItems);
@@ -57,9 +54,7 @@ function ListOfItems({ setIsItemNameValid, setIsLinkValid }) {
       </Box>
       <Button
         variant="outlined"
-        onClick={() => {
-          handleDeleteItem();
-        }}
+        onClick={handleDeleteItem}
       >
         Delete Selected
       </Button>

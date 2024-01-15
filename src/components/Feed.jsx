@@ -18,18 +18,20 @@ import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 
 import { itemContext } from "../App";
 
+const SortingButton = styled(Button)({
+  background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
+  border: 0,
+  borderRadius: 3,
+  boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
+  color: "white",
+  height: 40,
+  padding: "0 30px",
+  margin: "50x",
+});
+
+
 const Feed = () => {
   const { selectOptions } = useContext(itemContext);
-  const SortingButton = styled(Button)({
-    background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
-    border: 0,
-    borderRadius: 3,
-    boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
-    color: "white",
-    height: 40,
-    padding: "0 30px",
-    margin: "50x",
-  });
 
   const { items } = useContext(itemContext);
 
@@ -43,11 +45,7 @@ const Feed = () => {
   };
 
   const sortByPrice = () => {
-    if (isAscending) {
-      setIsAscending(false);
-    } else {
-      setIsAscending(true);
-    }
+    setIsAscending(prev => !prev);
   };
 
   const handleSearch = (event) => {
@@ -125,6 +123,7 @@ const Feed = () => {
               checked={checkedAvailable}
               onChange={handleShowAvailableSwitch}
               inputProps={{ "aria-label": "controlled" }}
+              // wrong aria label
             />
           }
           label="Show only available"
@@ -150,7 +149,7 @@ const Feed = () => {
           <Typography sx={{ p: 4 }} variant="h4" color="textSecondary">
             Nothing here
             <Typography variant="h5" color="textSecondary">
-              Go somwhere else
+              Go somewhere else
             </Typography>
           </Typography>
         )}

@@ -19,16 +19,14 @@ const AddItem = () => {
   const [itemImage, setItemImage] = useState();
   const [itemCategory, setItemCategory] = useState("");
   const [itemPrice, setItemPrice] = useState("");
+  // use object or useReducer
 
   const [isItemNameValid, setIsItemNameValid] = useState();
   const [isLinkValid, setIsLinkValid] = useState();
   const [isPriceValid, setIsPriceValid] = useState();
+  // also here it could be under one validationObject
 
-  const validateItemName = (valueToValidate) => {
-    valueToValidate.length >= 1
-      ? setIsItemNameValid(true)
-      : setIsItemNameValid(false);
-  };
+  const validateItemName = (valueToValidate) => setIsItemNameValid(Boolean(valueToValidate.length))
 
   const validateUrl = (url) => {
     try {
@@ -39,9 +37,7 @@ const AddItem = () => {
     }
   };
 
-  const validateItemPrice = (valueToValidate) => {
-    !isNaN(valueToValidate) ? setIsPriceValid(true) : setIsPriceValid(false);
-  };
+  const validateItemPrice = (valueToValidate) => setIsPriceValid(!isNaN(valueToValidate))
 
   const handleItemName = (event) => {
     validateItemName(event.target.value);
@@ -144,6 +140,9 @@ const AddItem = () => {
             label="Category"
           >
             {selectOptions.slice(1).map((option) => (
+              // ^ this can be easily broken by changing order of the array
+              // better to use some attribute 
+              // and to cover it by tests
               <MenuItem key={option.value} value={option.value}>
                 {option.label}
               </MenuItem>
@@ -162,7 +161,7 @@ const AddItem = () => {
             !itemCategory
           }
           variant="contained"
-          onClick={() => onAdd()}
+          onClick={onAdd}
         >
           Add
         </Button>
