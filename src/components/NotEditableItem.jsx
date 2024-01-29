@@ -7,7 +7,7 @@ import { PersonRemove } from "@mui/icons-material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { LibraryAdd } from "@mui/icons-material";
 
-import { itemContext } from "../App";
+import { itemContext } from "../context/itemContext";
 
 function NotEditableItem({ item }) {
   const { items, setItems } = useContext(itemContext);

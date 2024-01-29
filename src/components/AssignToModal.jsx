@@ -9,7 +9,7 @@ import {
   Typography,
   styled,
 } from "@mui/material";
-import { itemContext } from "../App";
+import { itemContext } from "../context/itemContext";
 
 const StyledModal = styled(Modal)({
   display: "flex",

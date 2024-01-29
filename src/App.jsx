@@ -1,13 +1,11 @@
-import { useState, createContext } from "react";
+import { useState } from "react";
 import { Box, Stack, AppBar } from "@mui/material";
 import Feed from "./components/Feed";
 import AddItem from "./components/AddItem";
 import Sidebar from "./components/Sidebar";
 import Topbar from "./components/Topbar";
-// import Rightbar from "./components/Rightbar";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
-
-export const itemContext = createContext();
+import { itemContext } from "./context/itemContext";
 
 function App() {
   const [items, setItems] = useState(

@@ -7,7 +7,7 @@ import { Divider, Box } from "@mui/material";
 import Checkbox from "@mui/material/Checkbox";
 
 import Item from "./Item";
-import { itemContext } from "../App";
+import { itemContext } from "../context/itemContext";
 
 function ListOfItems({ setIsItemNameValid, setIsLinkValid }) {
   const { items, setItems } = useContext(itemContext);

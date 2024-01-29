@@ -10,7 +10,7 @@ import {
   FormControl,
 } from "@mui/material";
 import ListOfItems from "./ListOfItems";
-import { itemContext } from "../App";
+import { itemContext } from "../context/itemContext";
 
 const AddItem = () => {
   const { items, setItems, selectOptions } = useContext(itemContext);

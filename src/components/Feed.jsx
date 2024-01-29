@@ -16,7 +16,7 @@ import Button from "@mui/material/Button";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 
-import { itemContext } from "../App";
+import { itemContext } from "../context/itemContext";
 
 const Feed = () => {
   const { selectOptions } = useContext(itemContext);
