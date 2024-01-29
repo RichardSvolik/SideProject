@@ -1,6 +1,8 @@
+Demo app for letting people know what one need for Christmas so they do not buy useless bull\*hit
+
+run app:
+npm i
 npm run dev
+open https://localhost:5173/
 
-chrome://flags/#allow-insecure-localhost
-![image](https://github.com/RichardSvolik/SideProject/assets/141908669/8c79c237-d783-4078-8a6a-431b96a06eff)
-
-https://localhost:5173/
+run tests: npx playwright test
