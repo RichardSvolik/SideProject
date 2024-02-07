@@ -9,7 +9,7 @@ import Checkbox from "@mui/material/Checkbox";
 import Item from "./Item";
 import { itemContext } from "../context/itemContext";
 
-function ListOfItems({ setIsItemNameValid, setIsLinkValid }) {
+function ListOfItems() {
   const { items, setItems } = useContext(itemContext);
   const handleDeleteItem = (itemToDelete) => {
     let filteredItems = [];
@@ -19,8 +19,6 @@ function ListOfItems({ setIsItemNameValid, setIsLinkValid }) {
     localStorage.clear();
     localStorage.setItem("items", JSON.stringify(items));
     setItems(filteredItems);
-    setIsLinkValid(false);
-    setIsItemNameValid(false);
   };
 
   const handleCheckBoxChange = (id) => {

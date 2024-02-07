@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useEffect, useContext, useReducer } from "react";
 
 import { Box } from "@mui/material";
 import {
@@ -12,67 +12,68 @@ import {
 import ListOfItems from "./ListOfItems";
 import { itemContext } from "../context/itemContext";
 
+const initialState = {
+  itemName: "",
+  itemLink: "",
+  itemImage: "",
+  itemCategory: "",
+  itemPrice: "",
+  isItemNameValid: false,
+  isLinkValid: false,
+  isPriceValid: false,
+};
+
+const validateLink = (url) => {
+  try {
+    new URL(url);
+    return true;
+  } catch (_) {
+    return false;
+  }
+};
+
+const createValidatedAttributes = (item) => {
+  return {
+    isItemNameValid: Boolean(item.itemName.length),
+    isLinkValid: validateLink(item.itemLink),
+    isPriceValid: item.itemPrice > 0 && !isNaN(item.itemPrice),
+  };
+};
+
+const reducer = (prevState, action) => {
+  switch (action.type) {
+    case "UPDATE_ITEM":
+      // eslint-disable-next-line no-case-declarations
+      const newState = {
+        ...prevState,
+        [action.data.attribute]: action.data.value,
+      };
+      return {
+        ...newState,
+        ...createValidatedAttributes(newState),
+      };
+    case "CLEAR_TEXT_FIELDS":
+      return { ...initialState };
+    default:
+      return prevState;
+  }
+};
+
 const AddItem = () => {
   const { items, setItems, selectOptions } = useContext(itemContext);
-  const [itemName, setItemName] = useState();
-  const [itemLink, setItemLink] = useState();
-  const [itemImage, setItemImage] = useState();
-  const [itemCategory, setItemCategory] = useState("");
-  const [itemPrice, setItemPrice] = useState("");
 
-  const [isItemNameValid, setIsItemNameValid] = useState();
-  const [isLinkValid, setIsLinkValid] = useState();
-  const [isPriceValid, setIsPriceValid] = useState();
+  const [state, dispatch] = useReducer(reducer, initialState);
 
-  const validateItemName = (valueToValidate) => {
-    valueToValidate.length >= 1
-      ? setIsItemNameValid(true)
-      : setIsItemNameValid(false);
-  };
-
-  const validateUrl = (url) => {
-    try {
-      new URL(url);
-      setIsLinkValid(true);
-    } catch (_) {
-      setIsLinkValid(false);
-    }
-  };
-
-  const validateItemPrice = (valueToValidate) => {
-    !isNaN(valueToValidate) ? setIsPriceValid(true) : setIsPriceValid(false);
-  };
-
-  const handleItemName = (event) => {
-    validateItemName(event.target.value);
-    setItemName(event.target.value);
-  };
-
-  const handleItemLink = (event) => {
-    validateUrl(event.target.value);
-    setItemLink(event.target.value);
-  };
-
-  const handleItemImage = (event) => {
-    setItemImage(event.target.value);
-  };
-
-  const handleCategory = (event) => {
-    setItemCategory(event.target.value);
-  };
-
-  const handleItemPrice = (event) => {
-    validateItemPrice(event.target.value);
-    setItemPrice(event.target.value);
-  };
-
-  const clearTextFields = () => {
-    setItemLink("");
-    setItemName("");
-    setItemImage("");
-    setItemPrice("");
-    setItemCategory("");
-  };
+  const {
+    itemName,
+    itemLink,
+    itemImage,
+    itemCategory,
+    itemPrice,
+    isItemNameValid,
+    isLinkValid,
+    isPriceValid,
+  } = state;
 
   const onAdd = () => {
     setItems([
@@ -89,8 +90,9 @@ const AddItem = () => {
       },
       ...items,
     ]);
-    clearTextFields();
-    // setInvalidState();
+    dispatch({
+      type: "CLEAR_TEXT_FIELDS",
+    });
   };
 
   useEffect(() => {
@@ -107,7 +109,12 @@ const AddItem = () => {
           label="Item name"
           variant="outlined"
           value={itemName}
-          onChange={handleItemName}
+          onChange={(event) =>
+            dispatch({
+              type: "UPDATE_ITEM",
+              data: { attribute: "itemName", value: event.target.value },
+            })
+          }
         />
         <TextField
           error={!isLinkValid}
@@ -116,14 +123,24 @@ const AddItem = () => {
           label="Item Link"
           value={itemLink}
           variant="outlined"
-          onChange={handleItemLink}
+          onChange={(event) =>
+            dispatch({
+              type: "UPDATE_ITEM",
+              data: { attribute: "itemLink", value: event.target.value },
+            })
+          }
         />
         <TextField
           id="item-image"
           label="Image Link"
           value={itemImage}
           variant="outlined"
-          onChange={handleItemImage}
+          onChange={(event) =>
+            dispatch({
+              type: "UPDATE_ITEM",
+              data: { attribute: "itemImage", value: event.target.value },
+            })
+          }
         />
         <TextField
           error={!isPriceValid}
@@ -132,7 +149,12 @@ const AddItem = () => {
           label="Price"
           value={itemPrice}
           variant="outlined"
-          onChange={handleItemPrice}
+          onChange={(event) =>
+            dispatch({
+              type: "UPDATE_ITEM",
+              data: { attribute: "itemPrice", value: event.target.value },
+            })
+          }
         />
         <FormControl>
           <InputLabel id="item-select-category">Category</InputLabel>
@@ -140,12 +162,17 @@ const AddItem = () => {
             error={!itemCategory}
             sx={{ minWidth: 195 }}
             value={itemCategory}
-            onChange={handleCategory}
+            onChange={(event) =>
+              dispatch({
+                type: "UPDATE_ITEM",
+                data: { attribute: "itemCategory", value: event.target.value },
+              })
+            }
             label="Category"
           >
             {selectOptions.slice(1).map((option) => (
               <MenuItem key={option.value} value={option.value}>
-                {option.label}
+                {option.value}
               </MenuItem>
             ))}
           </Select>
@@ -166,13 +193,17 @@ const AddItem = () => {
         >
           Add
         </Button>
-        <Button onClick={clearTextFields}>Clear</Button>
+        <Button
+          onClick={() =>
+            dispatch({
+              type: "CLEAR_TEXT_FIELDS",
+            })
+          }
+        >
+          Clear
+        </Button>
       </Box>
-      <ListOfItems
-        setIsItemNameValid={setIsItemNameValid}
-        setIsLinkValid={setIsLinkValid}
-        onAdd={onAdd}
-      />
+      <ListOfItems />
     </>
   );
 };
