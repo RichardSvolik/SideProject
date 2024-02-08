@@ -37,14 +37,15 @@ const AssignToModal = ({ id, item }) => {
   const [userName, setUserName] = useState();
 
   const onConfirm = () => {
-    items.forEach((item) => {
+    const newItems = items.map((item) => {
       if (item.id === id) {
         item.assignedTo = { email: userEmail, name: userName };
       }
-      setOpen(false);
     });
-    localStorage.setItem("items", JSON.stringify(items));
+    setOpen(false);
+    localStorage.setItem("items", JSON.stringify(newItems));
   };
+
   return (
     <>
       <Tooltip onClick={toggleModal}>
@@ -58,12 +59,7 @@ const AssignToModal = ({ id, item }) => {
           </Button>
         )}
       </Tooltip>
-      <StyledModal
-        open={open}
-        onClose={toggleModal}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
+      <StyledModal open={open} onClose={toggleModal}>
         <Box width={400} height={250} bgcolor="white" p={3} borderRadius={5}>
           <Typography variant="h6" color="gray" textAlign="center">
             Assign to user
@@ -79,8 +75,7 @@ const AssignToModal = ({ id, item }) => {
           </UserBox>
           <TextField
             sx={{ width: "100%", paddingBottom: 2 }}
-            id="standard-multiline-static"
-            rows={1}
+            id="userNameId"
             placeholder="Name"
             variant="standard"
             value={userName}
@@ -89,10 +84,8 @@ const AssignToModal = ({ id, item }) => {
 
           <TextField
             sx={{ width: "100%", paddingBottom: 2 }}
-            id="standard-multiline-static"
-            multiline
-            rows={1}
-            placeholder="E-mail"
+            id="useEmailId"
+            placeholder="Name"
             variant="standard"
             value={userEmail}
             onChange={(event) => setUserEmail(event.target.value)}
@@ -100,7 +93,7 @@ const AssignToModal = ({ id, item }) => {
 
           <Button
             variant="contained"
-            aria-label="outlined primary button group"
+            aria-label="confirm name and email button"
             onClick={() => onConfirm()}
           >
             Confirm

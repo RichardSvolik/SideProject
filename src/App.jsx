@@ -13,14 +13,14 @@ function App() {
   );
 
   const selectOptions = [
-    { label: "All Categories", value: "All Categories" },
     { label: "Electronics", value: "Electronics" },
     { label: "Food", value: "Food" },
+    { label: "All Categories", value: "All Categories", isAll: "true" },
     { label: "Other", value: "Other" },
   ];
 
   return (
-    <BrowserRouter basename="">
+    <BrowserRouter basename="/Feed">
       <itemContext.Provider value={{ items, setItems, selectOptions }}>
         <Topbar />
         <Stack direction="row" spacing={2}>
@@ -34,12 +34,15 @@ function App() {
                 <AppBar
                   elevation={0}
                   position="sticky"
-                  sx={{ top: "80px", color: "black", backgroundColor: "white" }}
+                  sx={{
+                    top: 80,
+                    color: "black",
+                    backgroundColor: "white",
+                  }}
                 >
                   <Sidebar />
                 </AppBar>
               </Box>
-              {/* <Sidebar /> */}
             </Box>
             <Box
               sx={{
