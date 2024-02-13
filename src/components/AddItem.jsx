@@ -170,7 +170,7 @@ const AddItem = () => {
             }
             label="Category"
           >
-            {selectOptions.slice(1).map((option) => (
+            {selectOptions.map((option) => (
               <MenuItem key={option.value} value={option.value}>
                 {option.value}
               </MenuItem>
