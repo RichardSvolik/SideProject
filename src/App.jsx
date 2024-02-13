@@ -20,7 +20,7 @@ function App() {
   ];
 
   return (
-    <BrowserRouter basename="/Feed">
+    <BrowserRouter basename="/">
       <itemContext.Provider value={{ items, setItems, selectOptions }}>
         <Topbar />
         <Stack direction="row" spacing={2}>
