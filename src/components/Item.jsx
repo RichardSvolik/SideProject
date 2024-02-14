@@ -25,7 +25,6 @@ function Item({ item }) {
       if (localStorageItem.id === item.id)
         localStorageItem.itemName = item.itemName;
     });
-    localStorage.removeItem("items");
     localStorage.setItem("items", JSON.stringify(localStorageData));
   };
 
