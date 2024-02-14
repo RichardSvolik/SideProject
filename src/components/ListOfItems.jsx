@@ -13,11 +13,6 @@ function ListOfItems() {
   const { items, setItems } = useContext(itemContext);
   const handleDeleteItem = () => {
     let filteredItems = items.filter((item) => !item.checked);
-    // let filteredItems = [];
-    // if (!itemToDelete) {
-    //   filteredItems = items.filter((item) => !item.checked);
-    // } else filteredItems = items.filter((item) => item.id !== itemToDelete);
-    localStorage.removeItem("items");
     localStorage.setItem("items", JSON.stringify(items));
     setItems(filteredItems);
   };

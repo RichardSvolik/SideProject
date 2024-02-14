@@ -127,7 +127,7 @@ const Feed = () => {
               checked={checkedAvailable}
               onChange={handleShowAvailableSwitch}
               inputProps={{
-                "switch between allitem and assigned items": "controlled",
+                "aria-label": "switch between allitem and assigned items",
               }}
             />
           }

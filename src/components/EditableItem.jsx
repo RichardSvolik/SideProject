@@ -24,9 +24,7 @@ function EditableItem({ item, setIsEditMode }) {
 
   const handleItemChanged = (event, attributeToChange) => {
     switch (attributeToChange) {
-      case ATTRIBUTE_NAME.NAME:
-      case ATTRIBUTE_NAME.LINK:
-      case ATTRIBUTE_NAME.PRICE:
+      default:
         {
           setEditedItem((prev) => ({
             ...prev,
@@ -73,7 +71,6 @@ function EditableItem({ item, setIsEditMode }) {
         localStorageItem.assignedTo.email = item.assignedTo.email;
       }
     });
-    localStorage.removeItem("items");
     localStorage.setItem("items", JSON.stringify(localStorageData));
   };
 
