@@ -21,11 +21,10 @@ function Item({ item }) {
     setTextToEdit(event.target.value);
     item.itemName = event.target.value;
     const localStorageData = JSON.parse(localStorage.getItem("items"));
-    localStorageData.map((localStorageItem) => {
+    localStorageData.forEach((localStorageItem) => {
       if (localStorageItem.id === item.id)
         localStorageItem.itemName = item.itemName;
     });
-    localStorage.clear();
     localStorage.setItem("items", JSON.stringify(localStorageData));
   };
 

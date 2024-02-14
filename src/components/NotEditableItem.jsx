@@ -27,7 +27,6 @@ function NotEditableItem({ item }) {
     if (!itemToDelete) {
       filteredItems = items.filter((item) => !item.checked);
     } else filteredItems = items.filter((item) => item.id !== itemToDelete);
-    localStorage.clear();
     localStorage.setItem("items", JSON.stringify(items));
     setItems(filteredItems);
   };

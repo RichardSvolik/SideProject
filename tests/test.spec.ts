@@ -5,7 +5,7 @@ test.beforeEach(async ({ page }) => {
 
 });
 
-test.only('add and delte items', async ({ page }) => {
+test('add and delte items', async ({ page }) => {
   await page.goto('https://localhost:5173/AddItem');
 
 

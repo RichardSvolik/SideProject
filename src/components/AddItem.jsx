@@ -61,6 +61,7 @@ const reducer = (prevState, action) => {
 
 const AddItem = () => {
   const { items, setItems, selectOptions } = useContext(itemContext);
+  const filteredOptions = selectOptions.filter((option) => !option.isAll);
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -170,7 +171,7 @@ const AddItem = () => {
             }
             label="Category"
           >
-            {selectOptions.slice(1).map((option) => (
+            {filteredOptions.map((option) => (
               <MenuItem key={option.value} value={option.value}>
                 {option.value}
               </MenuItem>

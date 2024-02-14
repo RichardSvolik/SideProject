@@ -14,47 +14,36 @@ function EditableItem({ item, setIsEditMode }) {
     setIsEditMode((previous) => !previous);
   };
 
-  const ATTRIBUDE_NAME = {
-    NAME: "NAME",
-    LINK: "LINK",
-    PRICE: "PRICE",
-    ASSIGNED_TO_NAME: "ASSIGNED_TO_NAME",
-    ASSIGNED_TO_EMAIL: "ASSIGNED_TO_EMAIL",
+  const ATTRIBUTE_NAME = {
+    NAME: "itemName",
+    LINK: "itemLink",
+    PRICE: "itemPrice",
+    ASSIGNED_TO_NAME: "name",
+    ASSIGNED_TO_EMAIL: "email",
   };
 
   const handleItemChanged = (event, attributeToChange) => {
     switch (attributeToChange) {
-      case ATTRIBUDE_NAME.NAME:
-        {
-          setEditedItem((prev) => ({ ...prev, itemName: event.target.value }));
-        }
-        break;
-      case ATTRIBUDE_NAME.LINK:
-        {
-          setEditedItem((prev) => ({ ...prev, itemLink: event.target.value }));
-        }
-        break;
-      case ATTRIBUDE_NAME.PRICE:
-        {
-          setEditedItem((prev) => ({ ...prev, itemPrice: event.target.value }));
-        }
-        break;
-      case ATTRIBUDE_NAME.ASSIGNED_TO_NAME:
+      default:
         {
           setEditedItem((prev) => ({
             ...prev,
-            assignedTo: { ...prev.assignedTo, name: event.target.value },
+            [attributeToChange]: event.target.value,
           }));
         }
         break;
-      case ATTRIBUDE_NAME.ASSIGNED_TO_EMAIL: {
+      case ATTRIBUTE_NAME.ASSIGNED_TO_NAME:
+      case ATTRIBUTE_NAME.ASSIGNED_TO_EMAIL:
         {
           setEditedItem((prev) => ({
             ...prev,
-            assignedTo: { ...prev.assignedTo, email: event.target.value },
+            assignedTo: {
+              ...prev.assignedTo,
+              [attributeToChange]: event.target.value,
+            },
           }));
         }
-      }
+        break;
     }
   };
 
@@ -73,7 +62,7 @@ function EditableItem({ item, setIsEditMode }) {
 
   const saveToLocalStorage = () => {
     const localStorageData = JSON.parse(localStorage.getItem("items"));
-    localStorageData.map((localStorageItem) => {
+    localStorageData.forEach((localStorageItem) => {
       if (localStorageItem.id === item.id) {
         localStorageItem.itemName = item.itemName;
         localStorageItem.itemLink = item.itemLink;
@@ -82,7 +71,6 @@ function EditableItem({ item, setIsEditMode }) {
         localStorageItem.assignedTo.email = item.assignedTo.email;
       }
     });
-    localStorage.clear();
     localStorage.setItem("items", JSON.stringify(localStorageData));
   };
 
@@ -106,19 +94,19 @@ function EditableItem({ item, setIsEditMode }) {
           size="small"
           label="Item"
           value={editedItem.itemName}
-          onChange={(event) => handleItemChanged(event, ATTRIBUDE_NAME.NAME)}
+          onChange={(event) => handleItemChanged(event, ATTRIBUTE_NAME.NAME)}
         ></TextField>
         <TextField
           size="small"
           label="Link"
           value={editedItem.itemLink}
-          onChange={(event) => handleItemChanged(event, ATTRIBUDE_NAME.LINK)}
+          onChange={(event) => handleItemChanged(event, ATTRIBUTE_NAME.LINK)}
         ></TextField>
         <TextField
           size="small"
           label="Price"
           value={editedItem.itemPrice}
-          onChange={(event) => handleItemChanged(event, ATTRIBUDE_NAME.PRICE)}
+          onChange={(event) => handleItemChanged(event, ATTRIBUTE_NAME.PRICE)}
         ></TextField>
         <Box
           sx={{
@@ -132,7 +120,7 @@ function EditableItem({ item, setIsEditMode }) {
             label="Name"
             value={editedItem.assignedTo.name}
             onChange={(event) =>
-              handleItemChanged(event, ATTRIBUDE_NAME.ASSIGNED_TO_NAME)
+              handleItemChanged(event, ATTRIBUTE_NAME.ASSIGNED_TO_NAME)
             }
           ></TextField>
           <TextField
@@ -140,7 +128,7 @@ function EditableItem({ item, setIsEditMode }) {
             label="e-mail"
             value={editedItem.assignedTo.email}
             onChange={(event) =>
-              handleItemChanged(event, ATTRIBUDE_NAME.ASSIGNED_TO_EMAIL)
+              handleItemChanged(event, ATTRIBUTE_NAME.ASSIGNED_TO_EMAIL)
             }
           ></TextField>
         </Box>

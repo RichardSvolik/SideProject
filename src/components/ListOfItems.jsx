@@ -11,12 +11,8 @@ import { itemContext } from "../context/itemContext";
 
 function ListOfItems() {
   const { items, setItems } = useContext(itemContext);
-  const handleDeleteItem = (itemToDelete) => {
-    let filteredItems = [];
-    if (!itemToDelete) {
-      filteredItems = items.filter((item) => !item.checked);
-    } else filteredItems = items.filter((item) => item.id !== itemToDelete);
-    localStorage.clear();
+  const handleDeleteItem = () => {
+    let filteredItems = items.filter((item) => !item.checked);
     localStorage.setItem("items", JSON.stringify(items));
     setItems(filteredItems);
   };
@@ -53,12 +49,7 @@ function ListOfItems() {
           </>
         ))}
       </Box>
-      <Button
-        variant="outlined"
-        onClick={() => {
-          handleDeleteItem();
-        }}
-      >
+      <Button variant="outlined" onClick={handleDeleteItem}>
         Delete Selected
       </Button>
     </Box>
