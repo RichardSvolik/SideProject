@@ -10,6 +10,7 @@ run tests: npx playwright test
 todo:
 
 addItem / assign modal - use enter to confirm, esc to cancel
+edit item - all value checks
 ColorTheme
 localStorage in separate file
 switch localStorage to database
