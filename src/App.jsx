@@ -12,12 +12,16 @@ function App() {
     JSON.parse(localStorage.getItem("items")) || []
   );
 
-  const selectOptions = [
+  const selectOptionsNotSorted = [
     { label: "Electronics", value: "Electronics" },
     { label: "Food", value: "Food" },
     { label: "All Categories", value: "All Categories", isAll: "true" },
     { label: "Other", value: "Other" },
   ];
+
+  const selectOptions = selectOptionsNotSorted.sort((a, b) =>
+    a.isAll && !b.isAll ? 1 : -1
+  );
 
   return (
     <BrowserRouter basename="/">
