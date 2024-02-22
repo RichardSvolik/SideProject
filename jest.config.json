@@ -1,0 +1,11 @@
+{
+  "collectCoverage": true,
+  "roots": ["tests/jest/"],
+  "coverageThreshold": {
+    "global": {
+      "branches": 75,
+      "functions": 100,
+      "lines": 85
+    }
+  }
+}

@@ -8,7 +8,7 @@
 
 ### **run tests**
 
-`npx playwright test`
+`npx playwright test tests/playwright`
 
 ### **todo**
 
