@@ -14,11 +14,11 @@
 
 **Pipeline**
 
-- disable merging when unit tests are failing
 - implement jest tests
 - implement minimum code coverage
 - add lint test
 - implement build
+- ~~disable merging when unit tests are failing~~ - not possible for free github account
 
 **others:**
 

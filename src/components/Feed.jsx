@@ -110,6 +110,7 @@ const Feed = () => {
           Price {isAscending ? <ArrowDownwardIcon /> : <ArrowUpwardIcon />}
         </SortingButton>
         <Select
+          id="selectCategory"
           sx={{ minWidth: 195, marginTop: 2 }}
           value={itemCategory}
           onChange={handleSelect}
@@ -135,7 +136,7 @@ const Feed = () => {
           labelPlacement="start"
         />
       </Box>
-      <Box>
+      <Box id="Feed-listOfItems">
         {getFinalItems().length ? (
           getFinalItems().map((item) => (
             <Post
