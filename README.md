@@ -9,6 +9,7 @@
 ### **run tests**
 
 `npx playwright test tests/playwright`
+`npm run test-jest`
 
 ### **todo**
 
