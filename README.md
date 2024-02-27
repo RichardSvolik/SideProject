@@ -31,3 +31,4 @@
 - update unit tests
 - release to public domain
 - automatic deploy in pipeline
+- move unit tests to same folder like prod code
