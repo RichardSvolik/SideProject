@@ -8,17 +8,18 @@
 
 ### **run tests**
 
-`npx playwright test`
+`npx playwright test tests/playwright`
+`npm run test-jest`
 
 ### **todo**
 
 **Pipeline**
 
-- disable merging when unit tests are failing
 - implement jest tests
 - implement minimum code coverage
 - add lint test
-- implement build
+- implement build https://github.com/sitek94/vite-deploy-demo
+- ~~disable merging when unit tests are failing~~ - not possible for free github account
 
 **others:**
 
@@ -30,3 +31,4 @@
 - update unit tests
 - release to public domain
 - automatic deploy in pipeline
+- move unit tests to same folder like prod code
