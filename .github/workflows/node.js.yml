@@ -1,7 +1,5 @@
 name: Node
-on:
-  push:
-    branches: [main, master]
+on: push
 jobs:
   build:
     runs-on: ubuntu-latest
