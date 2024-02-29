@@ -10,8 +10,10 @@ jobs:
       - name: Install Dependencies
         run: npm ci
       #   - run: npm run build --if-present
+      - name: Step 1 - Create a temporary artifact downloads folder
+        run: mkdir downloads
       - name: "Upload Artifact"
         uses: actions/upload-artifact@v4
         with:
-          name: my-artifact
-          path: my_file.txt
+          name: npmCI
+          path: downloads
