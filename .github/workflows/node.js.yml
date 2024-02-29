@@ -9,3 +9,7 @@ jobs:
         uses: actions/setup-node@v3
       - name: Install Dependencies
         run: npm ci
+      - uses: actions/upload-artifact@v3
+        with:
+          name: Build
+          path: dist
