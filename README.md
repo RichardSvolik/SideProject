@@ -18,7 +18,7 @@
 - implement jest tests
 - implement minimum code coverage
 - add lint test
-- implement build
+- implement build https://github.com/sitek94/vite-deploy-demo
 - ~~disable merging when unit tests are failing~~ - not possible for free github account
 
 **others:**
