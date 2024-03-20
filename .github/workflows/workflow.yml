@@ -16,7 +16,6 @@ jobs:
       - name: Run ESLint
         run: npm run lint
   playwright-test:
-    needs: eslint
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
