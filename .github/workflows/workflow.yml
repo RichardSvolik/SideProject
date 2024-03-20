@@ -1,5 +1,4 @@
 name: workflow
-# Only trigger, when the build workflow succeeded
 on:
   push:
     branches: [main, master]
