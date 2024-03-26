@@ -1,6 +1,13 @@
 {
   "hosting": {
-    "public": "dist/SideProject",
-    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  },
+  "database": {
+    "rules": "database.rules.json"
   }
 }
