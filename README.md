@@ -32,6 +32,7 @@
 - automatic deploy in pipeline
 - implement minimum code coverage
 - move unit tests to same folder like prod code
+- bundle analyzer - too much space
 
 **done:**
 
