@@ -1,6 +1,6 @@
 {
   "projects": {
-    "default": "christmas-b1caa"
+    "default": "dist/christmas-b1caa"
   },
   "rewrites": [
     {
