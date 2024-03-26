@@ -1,11 +1,16 @@
 {
-  "projects": {
-    "default": "dist/christmas-b1caa"
-  },
-  "rewrites": [
-    {
-      "source": "**",
-      "destination": "/index.html"
-    }
-  ]
+  "hosting": {
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.js"
+      }
+    ]
+  }
 }
