@@ -1,4 +1,4 @@
-name: Deploy Function
+name: Deploy supabase
 
 on:
   push:

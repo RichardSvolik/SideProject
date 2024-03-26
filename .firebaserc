@@ -1,5 +1,11 @@
 {
   "projects": {
     "default": "christmas-b1caa"
-  }
+  },
+  "rewrites": [
+    {
+      "source": "**",
+      "destination": "/index.html"
+    }
+  ]
 }
