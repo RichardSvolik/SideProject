@@ -23,6 +23,8 @@
 **others:**
 
 - localStorage in separate file
+- firebase / firestore - local storage / emulator
+- RXdb https://github.com/pubkey/rxdb
 - addItem / assign modal - use enter to confirm, esc to cancel
 - edit item - all value checks
 - ColorTheme
