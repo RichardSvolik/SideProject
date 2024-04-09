@@ -1,0 +1,57 @@
+[
+  {
+    "itemName": "https://www.alza.cz/lavazza-alteco-decaf-d6749380.htm",
+    "itemLink": "https://www.alza.cz/lavazza-alteco-decaf-d6749380.htm",
+    "itemImage": "https://image.alza.cz/products/LAVKA356/LAVKA356.jpg?width=1000&height=1000",
+    "itemDate": "2024-04-04T05:48:05.723Z",
+    "itemCategory": "Food",
+    "checked": false,
+    "itemPrice": "349",
+    "id": 1712209685723,
+    "assignedTo": { "name": "", "email": "" }
+  },
+  {
+    "itemName": "Lavazza Tierra, zrnková, 1000g",
+    "itemLink": "https://www.alza.cz/lavazza-tierra-d4348771.htm",
+    "itemImage": "https://image.alza.cz/products/KAV0082/KAV0082.jpg?width=1000&height=1000",
+    "itemDate": "2024-04-04T05:47:01.360Z",
+    "itemCategory": "Food",
+    "checked": false,
+    "itemPrice": "529",
+    "id": 1712209621360,
+    "assignedTo": { "name": "", "email": "" }
+  },
+  {
+    "itemName": "Bridgestone Turanza T005 205/55 R16 91 V",
+    "itemLink": "https://www.alza.cz/auto/bridgestone-turanza-t005-205-55-r16-91-v-d5316701.htm",
+    "itemImage": "https://image.alza.cz/products/pneu02329/pneu02329.jpg?width=1000&height=1000",
+    "itemDate": "2024-04-04T05:46:07.250Z",
+    "itemCategory": "Other",
+    "checked": true,
+    "itemPrice": "2055",
+    "id": 1712209567250,
+    "assignedTo": { "name": "", "email": "" }
+  },
+  {
+    "itemName": "MacBook Air 15\" M3 CZ 2024 Vesmírně šedý",
+    "itemLink": "https://www.alza.cz/macbook-air-15-m3-cz-2024-vesmirne-sedy-d10866075.htm",
+    "itemImage": "https://image.alza.cz/products/NL248b1a/NL248b1a.jpg?width=1000&height=1000",
+    "itemDate": "2024-04-04T05:45:32.107Z",
+    "itemCategory": "Electronics",
+    "checked": false,
+    "itemPrice": "37990",
+    "id": 1712209532107,
+    "assignedTo": { "name": "", "email": "" }
+  },
+  {
+    "itemName": "Bridgestone Turanza T005 205/55 R16 91 V2",
+    "itemLink": "https://www.alza.cz/auto/bridgestone-turanza-t005-205-55-r16-91-v-d5316701.htm",
+    "itemImage": "https://image.alza.cz/products/pneu02329/pneu02329.jpg?width=1000&height=1000",
+    "itemDate": "2024-04-04T05:46:07.250Z",
+    "itemCategory": "Other",
+    "checked": true,
+    "itemPrice": "2056",
+    "id": 1712209572449,
+    "assignedTo": { "name": "", "email": "" }
+  }
+]
