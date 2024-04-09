@@ -5,6 +5,7 @@ import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
 
 import { itemContext } from "../context/itemContext";
+import { getLocalStorageData, setLocalStorageData } from "./data/localStorage";
 
 function EditableItem({ item, setIsEditMode }) {
   const { items, setItems } = useContext(itemContext);
@@ -61,17 +62,17 @@ function EditableItem({ item, setIsEditMode }) {
   };
 
   const saveToLocalStorage = () => {
-    const localStorageData = JSON.parse(localStorage.getItem("items"));
-    localStorageData.forEach((localStorageItem) => {
-      if (localStorageItem.id === item.id) {
-        localStorageItem.itemName = item.itemName;
-        localStorageItem.itemLink = item.itemLink;
-        localStorageItem.itemPrice = item.itemPrice;
-        localStorageItem.assignedTo.name = item.assignedTo.name;
-        localStorageItem.assignedTo.email = item.assignedTo.email;
+    const savedItems = getLocalStorageData();
+    savedItems.forEach((savedItem) => {
+      if (savedItem.id === item.id) {
+        savedItem.itemName = item.itemName;
+        savedItem.itemLink = item.itemLink;
+        savedItem.itemPrice = item.itemPrice;
+        savedItem.assignedTo.name = item.assignedTo.name;
+        savedItem.assignedTo.email = item.assignedTo.email;
       }
     });
-    localStorage.setItem("items", JSON.stringify(localStorageData));
+    setLocalStorageData(savedItems);
   };
 
   return (

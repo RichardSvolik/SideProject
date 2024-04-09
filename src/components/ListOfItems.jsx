@@ -11,9 +11,9 @@ import { itemContext } from "../context/itemContext";
 
 function ListOfItems() {
   const { items, setItems } = useContext(itemContext);
+
   const handleDeleteItem = () => {
     let filteredItems = items.filter((item) => !item.checked);
-    localStorage.setItem("items", JSON.stringify(items));
     setItems(filteredItems);
   };
 

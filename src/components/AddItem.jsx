@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import ListOfItems from "./ListOfItems";
 import { itemContext } from "../context/itemContext";
+import { setLocalStorageData } from "./data/localStorage";
 
 const initialState = {
   itemName: "",
@@ -97,7 +98,7 @@ const AddItem = () => {
   };
 
   useEffect(() => {
-    localStorage.setItem("items", JSON.stringify(items));
+    setLocalStorageData(items);
   }, [items]);
 
   return (

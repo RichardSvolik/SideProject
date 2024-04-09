@@ -10,6 +10,7 @@ import {
   styled,
 } from "@mui/material";
 import { itemContext } from "../context/itemContext";
+import { setLocalStorageData } from "./data/localStorage";
 
 const StyledModal = styled(Modal)({
   display: "flex",
@@ -37,13 +38,13 @@ const AssignToModal = ({ id, item }) => {
   const [userName, setUserName] = useState();
 
   const onConfirm = () => {
-    const newItems = items.map((item) => {
+    const updatedAssignedToItems = items.map((item) => {
       if (item.id === id) {
         item.assignedTo = { email: userEmail, name: userName };
       }
     });
     setOpen(false);
-    localStorage.setItem("items", JSON.stringify(newItems));
+    setLocalStorageData(updatedAssignedToItems);
   };
 
   return (

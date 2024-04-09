@@ -18,7 +18,6 @@ function NotEditableItem({ item }) {
         currentItem.assignedTo = { email: "", name: "" };
       }
     });
-    localStorage.setItem("items", JSON.stringify(items));
     setItems([...items]);
   };
 
@@ -27,7 +26,6 @@ function NotEditableItem({ item }) {
     if (!itemToDelete) {
       filteredItems = items.filter((item) => !item.checked);
     } else filteredItems = items.filter((item) => item.id !== itemToDelete);
-    localStorage.setItem("items", JSON.stringify(items));
     setItems(filteredItems);
   };
 

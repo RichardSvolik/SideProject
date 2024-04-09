@@ -11,21 +11,9 @@ import EditableItem from "./EditableItem";
 
 function Item({ item }) {
   const [isEditMode, setIsEditMode] = useState(false);
-  const [textToEdit, setTextToEdit] = useState(item.itemName);
 
   const handleEditName = () => {
     setIsEditMode((previous) => !previous);
-  };
-
-  const handleItemNameChanged = (event) => {
-    setTextToEdit(event.target.value);
-    item.itemName = event.target.value;
-    const localStorageData = JSON.parse(localStorage.getItem("items"));
-    localStorageData.forEach((localStorageItem) => {
-      if (localStorageItem.id === item.id)
-        localStorageItem.itemName = item.itemName;
-    });
-    localStorage.setItem("items", JSON.stringify(localStorageData));
   };
 
   return (
@@ -45,14 +33,7 @@ function Item({ item }) {
           isEditMode={isEditMode}
         />
       ) : (
-        <NotEditableItem
-          item={item}
-          isEditMode={isEditMode}
-          textToEdit={textToEdit}
-          handleItemNameChanged={handleItemNameChanged}
-          // handlePersonRemove={handlePersonRemove}
-          handleEditName={handleEditName}
-        />
+        <NotEditableItem item={item} />
       )}
 
       {!isEditMode && (
