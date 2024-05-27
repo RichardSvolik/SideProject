@@ -25,7 +25,7 @@ function App() {
 
   useEffect(() => {
     getFireStoreData(items).then(setItems);
-  }, []);
+  }, [items]);
   if (!items) return "loading";
   else
     return (
