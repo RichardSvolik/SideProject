@@ -17,6 +17,9 @@
 **others:**
 
 - localStorage in separate file
+- firebase limit max na 10kc
+- ddos ochrana?
+- testing domain check
 - firebase / firestore - local storage / emulator
 - RXdb https://github.com/pubkey/rxdb
 - addItem / assign modal - use enter to confirm, esc to cancel
