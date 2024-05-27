@@ -5,11 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev_local": "VITE_LOCAL_FIRESTORE=true vite",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "test-jest": "jest --config=jest.config.json",
-    "test-pw": "playwright test"
+    "test-pw": "VITE_LOCAL_FIRESTORE=true playwright test"
   },
   "dependencies": {
     "@emotion/react": "^11.11.3",
@@ -17,6 +18,7 @@
     "@mui/icons-material": "^5.14.14",
     "@mui/material": "^5.14.14",
     "@mui/x-data-grid": "^6.18.2",
+    "firebase": "^10.11.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.17.0"
