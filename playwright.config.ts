@@ -25,7 +25,7 @@ export default defineConfig({
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
 
-    baseURL: 'https://localhost:5173/',
+    baseURL: 'https://localhost:5174/',
     ignoreHTTPSErrors: true,
     
 
@@ -80,7 +80,7 @@ export default defineConfig({
   // },
 
   webServer: {
-    command: `npm run dev`,
+    command: `npm run dev_local`,
     port: 5173,
     timeout: 300 * 1000,
     reuseExistingServer: true
