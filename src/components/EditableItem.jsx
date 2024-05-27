@@ -5,7 +5,7 @@ import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
 
 import { itemContext } from "../context/itemContext";
-import { getLocalStorageData, setLocalStorageData } from "./data/localStorage";
+import { setFireStoreData } from "./data/firestore";
 
 function EditableItem({ item, setIsEditMode }) {
   const { items, setItems } = useContext(itemContext);
@@ -48,31 +48,15 @@ function EditableItem({ item, setIsEditMode }) {
     }
   };
 
-  const updateItems = () => {
-    console.log(editedItem);
+  const updateItems = async () => {
     const newItems = items.map((item) => {
-      console.log(item);
       if (item.id === editedItem.id) {
         return editedItem;
       } else return item;
     });
     setItems(newItems);
     setIsEditMode(false);
-    saveToLocalStorage();
-  };
-
-  const saveToLocalStorage = () => {
-    const savedItems = getLocalStorageData();
-    savedItems.forEach((savedItem) => {
-      if (savedItem.id === item.id) {
-        savedItem.itemName = item.itemName;
-        savedItem.itemLink = item.itemLink;
-        savedItem.itemPrice = item.itemPrice;
-        savedItem.assignedTo.name = item.assignedTo.name;
-        savedItem.assignedTo.email = item.assignedTo.email;
-      }
-    });
-    setLocalStorageData(savedItems);
+    await setFireStoreData(newItems);
   };
 
   return (

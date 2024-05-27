@@ -8,13 +8,32 @@ import Checkbox from "@mui/material/Checkbox";
 
 import Item from "./Item";
 import { itemContext } from "../context/itemContext";
+import { deleteDocuments } from "./data/firestore";
 
 function ListOfItems() {
   const { items, setItems } = useContext(itemContext);
 
-  const handleDeleteItem = () => {
-    let filteredItems = items.filter((item) => !item.checked);
-    setItems(filteredItems);
+  const handleDeleteCheckedItems = () => {
+    // let notCheckedItems = items.filter((item) => !item.checked);
+    // setItems(notCheckedItems);
+    // let toDeleteItems = items.filter((item) => item.checked);
+    // deleteDocuments(toDeleteItems);
+
+    let [itemsToKeep, itemsToDelete] = items.reduce(
+      (acc, item) => {
+        item.checked ? acc[1].push(item) : acc[0].push(item);
+        return acc;
+      },
+      [[], []]
+    );
+
+    setItems(itemsToKeep);
+    deleteDocuments(itemsToDelete);
+  };
+
+  const handleDeleteAll = () => {
+    setItems([]);
+    deleteDocuments(items);
   };
 
   const handleCheckBoxChange = (id) => {
@@ -49,8 +68,11 @@ function ListOfItems() {
           </>
         ))}
       </Box>
-      <Button variant="outlined" onClick={handleDeleteItem}>
+      <Button variant="outlined" onClick={handleDeleteCheckedItems}>
         Delete Selected
+      </Button>
+      <Button variant="contained" onClick={handleDeleteAll}>
+        Delete All
       </Button>
     </Box>
   );
