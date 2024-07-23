@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import { Button } from "@mui/material";
@@ -14,11 +14,6 @@ function ListOfItems() {
   const { items, setItems } = useContext(itemContext);
 
   const handleDeleteCheckedItems = () => {
-    // let notCheckedItems = items.filter((item) => !item.checked);
-    // setItems(notCheckedItems);
-    // let toDeleteItems = items.filter((item) => item.checked);
-    // deleteDocuments(toDeleteItems);
-
     let [itemsToKeep, itemsToDelete] = items.reduce(
       (acc, item) => {
         item.checked ? acc[1].push(item) : acc[0].push(item);
@@ -37,12 +32,17 @@ function ListOfItems() {
   };
 
   const handleCheckBoxChange = (id) => {
-    items.map((item) => {
-      if (item.id === id) {
-        item.checked = true;
-      }
-    });
+    setItems(
+      items.map((item) => {
+        if (item.id === id) {
+          item.checked = !item.checked;
+        }
+        return item;
+      })
+    );
   };
+
+  const isNothingSelected = () => items.some((item) => item.checked);
 
   return (
     <Box
@@ -68,7 +68,11 @@ function ListOfItems() {
           </>
         ))}
       </Box>
-      <Button variant="outlined" onClick={handleDeleteCheckedItems}>
+      <Button
+        variant="outlined"
+        onClick={handleDeleteCheckedItems}
+        disabled={!isNothingSelected()}
+      >
         Delete Selected
       </Button>
       <Button variant="contained" onClick={handleDeleteAll}>
