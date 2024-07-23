@@ -25,6 +25,7 @@ function App() {
 
   useEffect(() => {
     getFireStoreData(items).then(setItems);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   if (!items) return "loading";
   else
