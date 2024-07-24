@@ -16,7 +16,12 @@
 **Pipeline**
 **others:**
 
-- localStorage in separate file
+- send message to AI (free) and get answer
+- confirmation popup for delete all
+- build prompt with my data
+- firebase limit max na 10kc
+- ddos ochrana?
+- testing domain check
 - firebase / firestore - local storage / emulator
 - RXdb https://github.com/pubkey/rxdb
 - addItem / assign modal - use enter to confirm, esc to cancel

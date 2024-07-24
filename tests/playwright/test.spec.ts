@@ -6,9 +6,10 @@ test.beforeEach(async ({ page }) => {
 
 test('add and delte items', async ({ page }) => {
   
-  await page.goto('https://localhost:5173/AddItem');
+  await page.goto('https://localhost:5174');
 
 
+  await page.getByRole('link', { name: 'Add Item' }).click();
   await expect(page.getByRole('button', { name: 'Add', exact: true })).toBeDisabled()
 
   await page.getByLabel('Item Name').fill('iPhone');
@@ -105,7 +106,8 @@ await expect(page.getByText('deleteItem2', )).not.toBeVisible()
 test('add items to Feed and check them', async ({ page }) => {
 
   //add items
-  await page.goto('https://localhost:5173/AddItem');
+  await page.goto('https://localhost:5174');
+  await page.getByRole('link', { name: 'Add Item' }).click();
 
   await page.getByLabel('Item Name').fill('iPhone');
   await page.getByLabel('Item Link').fill('https://www.alza.cz/iphone-15?dq=7927613&evt=ac');
@@ -140,7 +142,7 @@ test('add items to Feed and check them', async ({ page }) => {
   await page.getByRole('button', { name: 'Add', exact: true }).click()
 
   //check feed
-  await page.goto('https://localhost:5173/Feed');
+  await page.getByText( "Feed").nth(0).click()
 
   await expect(page.getByText('food1', )).toBeVisible()
   await expect(page.getByText('food2', )).toBeVisible()
@@ -180,10 +182,11 @@ test('add items to Feed and check them', async ({ page }) => {
   await expect(page.getByText('Assigned to Chuck', )).not.toBeVisible()
   await expect(page.getByText('food1', )).toBeVisible()
   await expect(page.getByText('food2', )).not.toBeVisible()
-  
 
-
-
+  //delete all button
+  await page.getByText( "Add Item").nth(0).click()
+  await page.getByRole('button', { name: 'Delete All' }).click()
+  await expect(page.getByText('iPhone', { exact: true })).not.toBeVisible()
 });
 
 

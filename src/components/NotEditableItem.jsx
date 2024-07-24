@@ -8,6 +8,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { LibraryAdd } from "@mui/icons-material";
 
 import { itemContext } from "../context/itemContext";
+import { deleteDocuments } from "./data/firestore";
 
 function NotEditableItem({ item }) {
   const { items, setItems } = useContext(itemContext);
@@ -23,10 +24,11 @@ function NotEditableItem({ item }) {
 
   const handleDeleteItem = (itemToDelete) => {
     let filteredItems = [];
-    if (!itemToDelete) {
+    if (!itemToDelete.id) {
       filteredItems = items.filter((item) => !item.checked);
-    } else filteredItems = items.filter((item) => item.id !== itemToDelete);
+    } else filteredItems = items.filter((item) => item.id !== itemToDelete.id);
     setItems(filteredItems);
+    deleteDocuments([itemToDelete]);
   };
 
   const handleDuplicateItem = (id) => {
@@ -84,7 +86,7 @@ function NotEditableItem({ item }) {
       <IconButton
         edge="end"
         aria-label="deleteItem"
-        onClick={() => handleDeleteItem(item.id)}
+        onClick={() => handleDeleteItem(item)}
       >
         <DeleteIcon />
       </IconButton>

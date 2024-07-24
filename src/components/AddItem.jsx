@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import ListOfItems from "./ListOfItems";
 import { itemContext } from "../context/itemContext";
-import { setLocalStorageData } from "./data/localStorage";
+import { setFireStoreData } from "./data/firestore";
 
 const initialState = {
   itemName: "",
@@ -98,7 +98,7 @@ const AddItem = () => {
   };
 
   useEffect(() => {
-    setLocalStorageData(items);
+    setFireStoreData(items);
   }, [items]);
 
   return (
