@@ -42,7 +42,7 @@ function ListOfItems() {
     );
   };
 
-  const isNothingSelected = () => items.some((item) => item.checked);
+  const isNothingSelected = !items.some((item) => item.checked);
 
   return (
     <Box
@@ -71,7 +71,7 @@ function ListOfItems() {
       <Button
         variant="outlined"
         onClick={handleDeleteCheckedItems}
-        disabled={!isNothingSelected()}
+        disabled={isNothingSelected}
       >
         Delete Selected
       </Button>
