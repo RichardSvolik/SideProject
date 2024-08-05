@@ -9,8 +9,8 @@ import {
   Typography,
   styled,
 } from "@mui/material";
-import { itemContext } from "../context/itemContext";
-import { setFireStoreData } from "./data/firestore";
+import { itemContext } from "../../context/itemContext";
+import { setFireStoreData } from "../data/firestore";
 
 const StyledModal = styled(Modal)({
   display: "flex",
@@ -98,6 +98,12 @@ const AssignToModal = ({ id, item }) => {
             onClick={() => onConfirm()}
           >
             Confirm
+          </Button>
+          <Button
+            aria-label="confirm name and email button"
+            onClick={toggleModal}
+          >
+            Cancel
           </Button>
         </Box>
       </StyledModal>
