@@ -4,7 +4,7 @@
 
 `npm i`  
 `npm run dev`  
-`open https://localhost:5173/`
+`open https://localhost:5174/`
 
 ### **run tests**
 
@@ -15,7 +15,8 @@
 
 **others:**
 
-- delete all - prompt
+- delete all - prompt - tests
+- clear button disable
 - folders
 - text input - same component + checks
 - confirm by enter

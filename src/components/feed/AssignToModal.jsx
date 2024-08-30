@@ -61,7 +61,7 @@ const AssignToModal = ({ id, item }) => {
         )}
       </Tooltip>
       <StyledModal open={open} onClose={toggleModal}>
-        <Box width={400} height={250} bgcolor="white" p={3} borderRadius={5}>
+        <Box className="modalStyle">
           <Typography variant="h6" color="gray" textAlign="center">
             Assign to user
           </Typography>

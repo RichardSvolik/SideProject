@@ -1,0 +1,16 @@
+/* styles.css */
+.modalStyle {
+    width: 400px;
+    height: auto;
+    background-color: white;
+    padding: 16px; /* Assuming p={3} translates to 16px */
+    border-radius: 5px;
+    align-items: center;
+    
+}
+
+.custom-typography {
+    color: gray !important;
+    text-align: center !important;
+    margin-bottom: 2 
+  }

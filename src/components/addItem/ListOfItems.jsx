@@ -89,12 +89,16 @@ function ListOfItems() {
       >
         Delete Selected
       </Button>
-      <Button variant="contained" onClick={toggleModal}>
+      <Button
+        variant="contained"
+        onClick={toggleModal}
+        disabled={items.length === 0}
+      >
         Delete All
       </Button>
       <StyledModal open={open} onClose={toggleModal}>
-        <Box bgcolor="white" p={3} borderRadius={5}>
-          <Typography color="gray" textAlign="center" sx={{ mb: 2 }}>
+        <Box className="modalStyle">
+          <Typography className="custom-typography">
             Delete everything?
           </Typography>
           <Button
