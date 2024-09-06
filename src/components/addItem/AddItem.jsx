@@ -10,8 +10,8 @@ import {
   FormControl,
 } from "@mui/material";
 import ListOfItems from "./ListOfItems";
-import { itemContext } from "../context/itemContext";
-import { setFireStoreData } from "./data/firestore";
+import { itemContext } from "../../context/itemContext";
+import { setFireStoreData } from "../data/firestore";
 
 const initialState = {
   itemName: "",

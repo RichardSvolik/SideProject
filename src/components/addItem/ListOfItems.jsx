@@ -1,17 +1,30 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
-import { Button } from "@mui/material";
+import { Button, styled, Modal, Typography } from "@mui/material";
 
 import { Divider, Box } from "@mui/material";
 import Checkbox from "@mui/material/Checkbox";
 
-import Item from "./Item";
-import { itemContext } from "../context/itemContext";
-import { deleteDocuments } from "./data/firestore";
+// import Item from "./Item";
+import Item from "../addItem/Item";
+import { itemContext } from "../../context/itemContext";
+import { deleteDocuments } from "../data/firestore";
+
+const StyledModal = styled(Modal)({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+});
 
 function ListOfItems() {
   const { items, setItems } = useContext(itemContext);
+
+  const [open, setOpen] = useState(false);
+
+  const toggleModal = () => {
+    setOpen((prev) => !prev);
+  };
 
   const handleDeleteCheckedItems = () => {
     let [itemsToKeep, itemsToDelete] = items.reduce(
@@ -28,7 +41,8 @@ function ListOfItems() {
 
   const handleDeleteAll = () => {
     setItems([]);
-    deleteDocuments(items);
+    // deleteDocuments(items);
+    toggleModal();
   };
 
   const handleCheckBoxChange = (id) => {
@@ -75,9 +89,29 @@ function ListOfItems() {
       >
         Delete Selected
       </Button>
-      <Button variant="contained" onClick={handleDeleteAll}>
+      <Button
+        variant="contained"
+        onClick={toggleModal}
+        disabled={items.length === 0}
+      >
         Delete All
       </Button>
+      <StyledModal open={open} onClose={toggleModal}>
+        <Box className="modalStyle">
+          <Typography className="custom-typography">
+            Delete everything?
+          </Typography>
+          <Button
+            onClick={handleDeleteAll}
+            color="primary"
+            variant="contained"
+            autoFocus
+          >
+            OK
+          </Button>
+          <Button onClick={toggleModal}>Cancel</Button>
+        </Box>
+      </StyledModal>
     </Box>
   );
 }

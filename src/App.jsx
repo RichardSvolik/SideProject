@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Box, Stack, AppBar } from "@mui/material";
-import Feed from "./components/Feed";
-import AddItem from "./components/AddItem";
+import Feed from "./components/feed/Feed";
+import AddItem from "./components/addItem/AddItem";
 import Sidebar from "./components/Sidebar";
 import Topbar from "./components/Topbar";
 import { Routes, Route, BrowserRouter } from "react-router-dom";

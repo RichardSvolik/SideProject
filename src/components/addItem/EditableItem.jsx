@@ -4,8 +4,8 @@ import IconButton from "@mui/material/IconButton";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
 
-import { itemContext } from "../context/itemContext";
-import { setFireStoreData } from "./data/firestore";
+import { itemContext } from "../../context/itemContext";
+import { setFireStoreData } from "../data/firestore";
 
 function EditableItem({ item, setIsEditMode }) {
   const { items, setItems } = useContext(itemContext);

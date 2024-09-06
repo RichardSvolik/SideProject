@@ -1,8 +1,11 @@
 import { test, expect } from '@playwright/test';
 
-test.beforeEach(async ({ page }) => {
-
+test.beforeEach(async ({ request }) => {
+  const response = await request.delete('"http://localhost:5174/emulator/v1/projects/christmas-b1caa/databases/(default)/documents"');
+  console.log(response);
 });
+
+
 
 test('add and delte items', async ({ page }) => {
   
@@ -176,7 +179,7 @@ test('add items to Feed and check them', async ({ page }) => {
   await page.locator('#userNameId').fill('Chuck Norris');
   await page.locator('#useEmailId').click();
   await page.locator('#useEmailId').fill('chuck@norris.com');
-  await page.getByLabel('confirm name and email button').click();
+  await page.getByText('Confirm').click();
   await expect(page.getByText('Assigned to Chuck', )).toBeVisible()
   await page.getByLabel('switch between allitem and assigned items').check();
   await expect(page.getByText('Assigned to Chuck', )).not.toBeVisible()
@@ -186,6 +189,10 @@ test('add items to Feed and check them', async ({ page }) => {
   //delete all button
   await page.getByText( "Add Item").nth(0).click()
   await page.getByRole('button', { name: 'Delete All' }).click()
+  await page.getByRole('button', { name: 'CANCEL' }).click()
+  await expect(page.getByText('iPhone', { exact: true })).toBeVisible()
+  await page.getByRole('button', { name: 'Delete All' }).click()
+  await page.getByRole('button', { name: 'OK' }).click()
   await expect(page.getByText('iPhone', { exact: true })).not.toBeVisible()
 });
 
